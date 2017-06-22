@@ -14,7 +14,7 @@
                               occurrences_function="occurrences", ## the occurrences or equivalent function name
                               config_function="ala_config", ## the ala_config or equivalent function name
                               base_url_spatial="http://spatial.ala.org.au/ws/", ## the base url for spatial web services
-                              base_url_bie="http://bie.ala.org.au/ws/", ## the base url for BIE web services
+                              base_url_bie="https://species-ws.nbnatlas.org/", ## the base url for BIE web services
                               base_url_biocache="http://biocache.ala.org.au/ws/", ## the base url for biocache web services
                               biocache_version="1.8.2",
                               base_url_alaspatial="http://spatial.ala.org.au/alaspatial/ws/", ## the base url for older ALA spatial services

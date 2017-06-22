@@ -72,7 +72,7 @@ search_fulltext <- function(query,fq,output_format="simple",start,page_size,sort
         this_query$dir <- sort_dir
     }
     
-    this_url <- build_url_from_parts(getOption("ALA4R_server_config")$base_url_bie,"search.json",query=this_query)
+    this_url <- build_url_from_parts(getOption("ALA4R_server_config")$base_url_bie,"search",query=this_query)
     
     x <- cached_get(url=this_url,type="json")
     x <- as.list(x)
