@@ -27,5 +27,5 @@ This provides a data.frame detailing the assertions that are found in a dataset 
 }
 }
 \references{
-\url{http://api.ala.org.au/}, \samp{http://biocache.ala.org.au/ws/assertions/codes}
+\url{https://api.nbnatlas.org/}, \samp{http://biocache.ala.org.au/ws/assertions/codes}
 }

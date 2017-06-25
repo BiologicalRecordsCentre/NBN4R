@@ -48,7 +48,7 @@ Get or set configuration options that control ALA4R behaviour
 }
 }
 \references{
-\url{http://api.ala.org.au/}
+\url{https://api.nbnatlas.org/}
 
 \url{http://spatial.ala.org.au/layers-service/} this will eventually move to the api link
 

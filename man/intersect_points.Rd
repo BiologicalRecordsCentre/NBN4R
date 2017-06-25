@@ -40,7 +40,7 @@ Intersect environmental or contextual layers at a given a set of points (coordin
 }
 }
 \references{
-The associated ALA web service: \url{http://api.ala.org.au/#ws84}
+The associated ALA web service: \url{https://api.nbnatlas.org/#ws84}
 
 Descriptions of the spatial layers: \url{http://spatial.ala.org.au/layers/}
 

@@ -22,7 +22,7 @@ ala_cache_filename("http://biocache.ala.org.au/ws/index/fields")
 
 }
 \references{
-\url{http://api.ala.org.au/}
+\url{https://api.nbnatlas.org/}
 }
 \seealso{
 \code{ala_config} for cache settings, particularly the cache directory

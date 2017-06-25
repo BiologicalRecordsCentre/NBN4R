@@ -46,7 +46,7 @@ x <- taxinfo_download("rk_family:Fabaceae",fields=c("guid","parentGuid","rk_king
 }
 }
 \references{
-Associated ALA web service: \url{http://api.ala.org.au/#ws2}
+Associated ALA web service: \url{https://api.nbnatlas.org/#ws2}
 }
 \seealso{
 \code{\link{ala_fields}}, \code{\link{ala_config}}
