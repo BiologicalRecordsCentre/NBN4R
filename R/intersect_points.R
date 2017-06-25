@@ -1,6 +1,6 @@
 #' Intersect environmental or contextual layers at a given a set of points (coordinates)
 #' 
-#' @references The associated ALA web service: \url{http://api.ala.org.au/#ws84}
+#' @references The associated ALA web service: \url{https://api.nbnatlas.org/#ws84}
 #' @references Descriptions of the spatial layers: \url{http://spatial.ala.org.au/layers/}
 #'
 #' This function allows the user to sample environmental/contextual layers at arbitrary locations. It complements 

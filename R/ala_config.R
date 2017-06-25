@@ -1,6 +1,6 @@
 #' Get or set configuration options that control ALA4R behaviour
 #'
-#' @references \url{http://api.ala.org.au/}
+#' @references \url{https://api.nbnatlas.org/}
 #' @references \url{http://spatial.ala.org.au/layers-service/} this will eventually move to the api link
 #'
 #' Invoking \code{ala_config()} with no arguments returns a list with the current values of the options.
