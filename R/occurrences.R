@@ -3,8 +3,8 @@
 #' Retrieve ALA occurrence data via the "occurrence download" web service. At least one of \code{taxon}, \code{wkt}, or \code{fq} must be supplied for a valid query. Note that there is a limit of 500000 records per request when using \code{method="indexed"}. Use the \code{method="offline"} for larger requests. For small requests, \code{method="indexed"} likely to be faster.
 #' 
 #' @references \itemize{
-#' \item Associated ALA web service for record counts: \url{http://api.ala.org.au/#ws3}
-#' \item Associated ALA web service for occurence downloads: \url{http://api.ala.org.au/#ws4}
+#' \item Associated ALA web service for record counts: \url{https://api.nbnatlas.org/#ws3}
+#' \item Associated ALA web service for occurence downloads: \url{https://api.nbnatlas.org/#ws4}
 #' \item Field definitions: \url{https://docs.google.com/spreadsheet/ccc?key=0AjNtzhUIIHeNdHhtcFVSM09qZ3c3N3ItUnBBc09TbHc}
 #' \item WKT reference: \url{http://www.geoapi.org/3.0/javadoc/org/opengis/referencing/doc-files/WKT.html}
 #' }
