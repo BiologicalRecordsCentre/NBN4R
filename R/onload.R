@@ -17,7 +17,7 @@
                               base_url_bie="https://species-ws.nbnatlas.org/", ## the base url for BIE web services
                               base_url_biocache="https://records-ws.nbnatlas.org/", ## Services for mapping occurrence data, and species breakdowns for geographic areas.
                               biocache_version="1.8.2", 
-                              base_url_alaspatial="http://spatial.ala.org.au/alaspatial/ws/", ## the base url for older ALA spatial services
+                              base_url_alaspatial="https://layers.nbnatlas.org/alaspatial/ws/", ## the base url for older ALA spatial services
                               base_url_images="https://images.nbnatlas.org/", ## the base url for the images database. Set to NULL or empty string if not available
                               base_url_logger="http://logger.ala.org.au/service/logger/", ## the base url for usage logging webservices
                               base_url_fieldguide="http://fieldguide.ala.org.au/", 

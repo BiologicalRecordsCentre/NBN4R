@@ -1,7 +1,7 @@
 #' Get or set configuration options that control ALA4R behaviour
 #'
 #' @references \url{https://api.nbnatlas.org/}
-#' @references \url{http://spatial.ala.org.au/layers-service/} this will eventually move to the api link
+#' @references \url{https://layers.nbnatlas.org/layers/} this will eventually move to the api link
 #'
 #' Invoking \code{ala_config()} with no arguments returns a list with the current values of the options.
 #'
@@ -181,7 +181,7 @@ ala_reasons <- function() {
     ## 10                 logger.download.reason.testing                          testing 10
     ## 11         logger.download.reason.citizen.science                  citizen science 11
     ## 12 logger.download.reason.restoration.remediation          restoration/remediation 12
-    
+
     out <- cached_get(build_url_from_parts(getOption("ALA4R_server_config")$base_url_logger,path="reasons"),type="json")
     if (any(names(out)=="deprecated")) out <- out[!out$deprecated,]
     out[,!names(out)=="deprecated"]
@@ -198,7 +198,7 @@ ala_sourcetypeid <- function() {
         2001 ## default value
     }
 }
-    
+
 
 convert_reason <- function(reason) {
     ## unexported function to convert string reason to numeric id

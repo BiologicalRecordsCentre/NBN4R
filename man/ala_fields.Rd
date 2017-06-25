@@ -53,7 +53,7 @@ Note for occurrence fields: only fields that are indexed in the ALA database can
 Relevant ALA web services: \itemize{
 \item for fields_type "occurrence": https://api.nbnatlas.org/#ws72
 \item for fields_type "general": https://api.nbnatlas.org/#ws88
-\item for fields_type "layers": https://api.nbnatlas.org/#ws11 (see also descriptions of the spatial layers: \url{http://spatial.ala.org.au/layers/})
+\item for fields_type "layers": https://api.nbnatlas.org/#ws11 (see also descriptions of the spatial layers: \url{https://layers.nbnatlas.org/layers/})
 \item for fields_type "assertions": https://api.nbnatlas.org/#ws81
 }
 }

@@ -5,7 +5,7 @@
 #' @references Relevant ALA web services: \itemize{
 #' \item for fields_type "occurrence": https://api.nbnatlas.org/#ws72
 #' \item for fields_type "general": https://api.nbnatlas.org/#ws88
-#' \item for fields_type "layers": https://api.nbnatlas.org/#ws11 (see also descriptions of the spatial layers: \url{http://spatial.ala.org.au/layers/})
+#' \item for fields_type "layers": https://api.nbnatlas.org/#ws11 (see also descriptions of the spatial layers: \url{https://layers.nbnatlas.org/layers/})
 #' \item for fields_type "assertions": https://api.nbnatlas.org/#ws81
 #' }
 #' @seealso \code{\link{search_layers}} to search for spatial layers
@@ -40,7 +40,7 @@
 #' @export ala_fields
 
 # TODO: Summary of #fields returned
-# ids from http://spatial.ala.org.au/ws/layers are NUMERIC but lookup prepends "el" and "cl"! 
+# ids from https://layers.nbnatlas.org/ws/layers are NUMERIC but lookup prepends "el" and "cl"! 
 
 ala_fields <- function(fields_type="occurrence",as_is=TRUE) {
     assert_that(is.string(fields_type))
@@ -68,7 +68,7 @@ ala_fields <- function(fields_type="occurrence",as_is=TRUE) {
     ## since this function returns a list of field names, also remove the unwanted fields from the results list
     x <- x[!x$name %in% unwanted_columns(fields_type),]
     
-    ## for "layers", shorter, more manageable names are provided from http://spatial.ala.org.au/ws/layers in API. Add these as an extra column: shortName
+    ## for "layers", shorter, more manageable names are provided from https://layers.nbnatlas.org/ws/layers in API. Add these as an extra column: shortName
     if (identical(fields_type,"layers")) {
         more_x <- cached_get(url=build_url_from_parts(getOption("ALA4R_server_config")$base_url_spatial,"layers"),type="json")
         ## just pull out the bits that we want and construct ids here that match the field names in x

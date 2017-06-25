@@ -2,7 +2,7 @@
 #' 
 #' A data.frame is returned as grid cells by species with values in each cell being the number of occurrences of each species. No null (all zero) species should be returned. The coordinates returned are the TOP-LEFT corner of the grid cell.
 #'
-#' @references Associated web services: \url{http://spatial.ala.org.au/ws}
+#' @references Associated web services: \url{https://layers.nbnatlas.org/ws}
 #' @references \url{http://www.geoapi.org/3.0/javadoc/org/opengis/referencing/doc-files/WKT.html}
 #' 
 #' @param taxon string: the identifier to get the species data from the ala biocache. E.g. "genus:Macropus". See \code{ala_fields("occurrence_stored")} for valid field names
@@ -19,7 +19,7 @@
 #'   144 -40,144 -43))",gridsize=0.1,verbose=TRUE)
 #' head(ss[,1:6])
 #' # equivalent direct POST webservice call:
-#' # http://spatial.ala.org.au/alaspatial/ws/sitesbyspecies?speciesq=genus:Eucalyptus&qname=data&
+#' # https://layers.nbnatlas.org/alaspatial/ws/sitesbyspecies?speciesq=genus:Eucalyptus&qname=data&
 #' #  area=POLYGON((144%20-43,148%20-43,148%20-40,144%20-40,144%20-43))&bs=http://biocache.ala.org.au/
 #' #  ws/&movingaveragesize=1&gridsize=0.1&sitesbyspecies=1
 #'

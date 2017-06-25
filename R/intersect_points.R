@@ -1,7 +1,7 @@
 #' Intersect environmental or contextual layers at a given a set of points (coordinates)
 #' 
 #' @references The associated ALA web service: \url{https://api.nbnatlas.org/#ws84}
-#' @references Descriptions of the spatial layers: \url{http://spatial.ala.org.au/layers/}
+#' @references Descriptions of the spatial layers: \url{https://layers.nbnatlas.org/layers/}
 #'
 #' This function allows the user to sample environmental/contextual layers at arbitrary locations. It complements 
 #' the \code{\link{occurrences}} function, which allows values of the same set of layers to be downloaded at 
@@ -21,7 +21,7 @@
 #'  pnts <- c(-23.1,149.1)
 #'  intersect_points(pnts,layers)
 #'  # equivalent direct web service call:
-#'  # http://spatial.ala.org.au/ws/intersect/cl22,cl23,el773/-23.1/149.1  
+#'  # https://layers.nbnatlas.org/ws/intersect/cl22,cl23,el773/-23.1/149.1  
 #' 
 #'  ## multiple points as a grid sampling multiple layers
 #'  layers <- c('cl22','cl23','el773')

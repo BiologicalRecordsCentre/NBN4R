@@ -31,7 +31,7 @@ ss <- sites_by_species(taxon="genus:Eucalyptus",wkt="POLYGON((144 -43,148 -43,14
   144 -40,144 -43))",gridsize=0.1,verbose=TRUE)
 head(ss[,1:6])
 # equivalent direct POST webservice call:
-# http://spatial.ala.org.au/alaspatial/ws/sitesbyspecies?speciesq=genus:Eucalyptus&qname=data&
+# https://layers.nbnatlas.org/alaspatial/ws/sitesbyspecies?speciesq=genus:Eucalyptus&qname=data&
 #  area=POLYGON((144\%20-43,148\%20-43,148\%20-40,144\%20-40,144\%20-43))&bs=http://biocache.ala.org.au/
 #  ws/&movingaveragesize=1&gridsize=0.1&sitesbyspecies=1
 
@@ -41,7 +41,7 @@ attr(ss,"guid")[1]
 }
 }
 \references{
-Associated web services: \url{http://spatial.ala.org.au/ws}
+Associated web services: \url{https://layers.nbnatlas.org/ws}
 
 \url{http://www.geoapi.org/3.0/javadoc/org/opengis/referencing/doc-files/WKT.html}
 }
