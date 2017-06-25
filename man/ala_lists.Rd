@@ -30,7 +30,7 @@ Find ALA species lists
 
 }
 \references{
-\url{http://lists.ala.org.au} and the associated web services at \url{http://lists.ala.org.au/ws}
+\url{http://lists.ala.org.au} and the associated web services at \url{https://lists.nbnatlas.org/ws}
 }
 \seealso{
 \code{\link{ala_list}}
