@@ -4,8 +4,7 @@
 \alias{search_fulltext}
 \title{Full text search}
 \usage{
-search_fulltext(query, fq, output_format = "simple", start, page_size,
-  sort_by, sort_dir)
+search_fulltext(...)
 }
 \arguments{
 \item{query}{string: the search term}

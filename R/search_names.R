@@ -16,10 +16,10 @@
 #' @examples
 #' \dontrun{
 #' search_names(c("Grevillea humilis","Grevillea humilis subsp. maritima",
-#'   "Macropus","Thisisnot aname"))
+#' "Macropus","Thisisnot aname"))
 #' 
 #' search_names(c("Grevillea humilis","Grevillea humilis subsp. maritima",
-#'   "Macropus","Thisisnot aname"),guids_only=TRUE)
+#' "Macropus","Thisisnot aname"),guids_only=TRUE)
 #' 
 #' search_names("kookaburra",vernacular=FALSE)
 #' 
@@ -27,124 +27,15 @@
 #' 
 #' ## occurrence counts for matched names
 #' search_names(c("Grevillea humilis","Grevillea humilis subsp. maritima",
-#'   "Macropus","Thisisnot aname"),occurrence_count=TRUE)
+#' "Macropus","Thisisnot aname"),occurrence_count=TRUE)
 #'
 #' ## no occurrence counts because guids_only is TRUE
 #' search_names(c("Grevillea humilis","Grevillea humilis subsp. maritima",
-#'   "Macropus","Thisisnot aname"),occurrence_count=TRUE,guids_only=TRUE)
+#' "Macropus","Thisisnot aname"),occurrence_count=TRUE,guids_only=TRUE)
 #' }
 #' @export search_names
-
-search_names <- function(taxa=c(),vernacular=FALSE,guids_only=FALSE,occurrence_count=FALSE,output_format="simple") {
-    ## input argument checks
-    if (is.list(taxa)) {
-        taxa <- unlist(taxa)
-    }
-    if (is.factor(taxa)) {
-        taxa <- as.character(taxa)
-    }
-    assert_that(is.character(taxa))
-    if (any(nchar(taxa)<1)) {
-        stop("input contains empty string")
-    }
-    if (length(taxa)<1) {
-        stop("empty input")
-    }
-    assert_that(is.flag(vernacular))
-    assert_that(is.flag(guids_only))
-    assert_that(is.flag(occurrence_count))
-    assert_that(is.character(output_format))
-    output_format <- match.arg(tolower(output_format),c("simple","complete"))
-    taxa_original <- taxa
-    taxa <- sapply(taxa,clean_string,USE.NAMES=FALSE) ## clean up the taxon name
-    ## re-check names, since clean_string may have changed them
-    if (any(nchar(taxa)<1)) {
-        stop("input contains empty string after cleaning (did the input name contain only non-alphabetic characters?)")
-    }    
-    this_url <- build_url_from_parts(getOption("ALA4R_server_config")$base_url_bie,c("species","lookup","bulk"))
-    temp <- jsonlite::toJSON(list(names=taxa,vernacular=vernacular))
-    ## toJSON puts vernacular as a single-element array, which causes failures. Need to convert to scalar logical
-    temp <- str_replace(temp,"\\[[ ]*false[ ]*\\]","false")
-    temp <- str_replace(temp,"\\[[ ]*true[ ]*\\]","true")
-    x <- cached_post(url=this_url,body=temp,type="json",content_type="application/json")
-    if (identical(x,NA) || identical(x,as.character(NA))) {
-        ## if a single non-matched name is supplied, we get NA back
-        x <- NULL
-    }
-    if (guids_only) {
-        if (! is.data.frame(x)) {
-            ## if we pass multiple names and none of them match, we get a vector of NAs back
-            if (!is.null(x) && all(is.na(x))) {
-                x <- data.frame()
-            }
-        }
-        if (empty(x)) {
-            if (ala_config()$warn_on_empty) {
-                warning("no records found");
-            }
-            x <- as.list(rep(NA,length(taxa_original)))
-        } else {
-            x <- as.list(x$guid)
-        }
-        names(x) <- make.names(taxa_original)
-    } else {
-        if (! is.data.frame(x)) {
-            ## if we pass multiple names and none of them match, we get a vector of NAs back
-            if (!is.null(x) && all(is.na(x))) {
-                x <- data.frame()
-            }
-        }
-        if (! empty(x)) {
-            ## column names within the data matrix are returned as camelCase
-            ## add searchTerm, so user can more easily see what each original query was
-            x$searchTerm <- taxa_original
-            ## rename some columns
-            names(x)[names(x)=="classs"] <- "class"
-            ## remove some columns that are unlikely to be of value here
-            xcols <- setdiff(names(x),unwanted_columns("general"))
-            ## also remove hasChildren, since it always seems to be false
-            xcols <- setdiff(xcols,c("hasChildren"))
-            ## reorder columns, for minor convenience
-            firstcols <- intersect(c("searchTerm","name","commonName","guid","rank"),xcols)
-            xcols <- c(firstcols,setdiff(xcols,firstcols))
-            x <- subset(x,select=xcols)            
-            attr(x,"output_format") <- output_format            
-        } else {
-            if (ala_config()$warn_on_empty) {
-                warning("no records found");
-            }
-            x <- data.frame(searchTerm=taxa_original,name=NA,commonName=NA,rank=NA,guid=NA)
-            attr(x,"output_format") <- output_format
-        }
-        ## some names have non-breaking spaces
-        for (n in intersect(names(x),c("name","nameComplete","acceptedConceptName")))
-            x[,n] <- replace_nonbreaking_spaces(x[,n])
-    }
-    names(x) <- rename_variables(names(x),type="general")
-    if (occurrence_count & !guids_only) {
-        ## do this after renaming variables, so that column name guid is predictable
-        x$occurrenceCount <- NA
-        non_na <- !is.na(x$guid)
-        if (any(non_na)) x$occurrenceCount[non_na] <- sapply(x$guid[non_na],function(z) occurrences(taxon=paste0("lsid:",z),record_count_only=TRUE))
-    }
-    class(x) <- c("search_names",class(x)) ## add the search_names class
-    x
-}
-
-#' @method print search_names
-#' @export
-"print.search_names" <- function(x, ...)
-{
-    if (inherits(x,"list")) {
-        ## from guids_only seach
-        print(format(x))
-    } else {
-        cols <- names(x)
-        if (identical(attr(x,"output_format"),"simple")) {
-            cnn <- if ("commonNameSingle" %in% cols) "commonNameSingle" else "commonName"
-            cols <- intersect(c("searchTerm","name",cnn,"rank","guid","occurrenceCount"),cols)
-        }
-        print(format.data.frame(x[,cols],na.encode=FALSE))
-    }
-    invisible(x)
+search_names <- function(...) {
+  
+  ALA4R::search_names(...)
+  
 }

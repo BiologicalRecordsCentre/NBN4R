@@ -1,23 +1,25 @@
-Package: ALA4R
+Package: NBN4R
 Type: Package
-Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 1.5.8
+Title: National Biodiversity Network Atlas (UK and Ireland) Data and Resources in R
+Version: 1.0
 Authors@R: c(person("Ben","Raymond",email="ben_ala@untan.gl", 
   	   role=c("aut","cre")),
 	   person("Jeremy","VanDerWal",role="aut"),
 	   person("Lee","Belbin",role="aut"),
 	   person("Michael","Sumner",role="ctb"),
 	   person("Tom","August",role="ctb"),
-	   person("John","Baumgartner",role="ctb"))
-Description: The Atlas of Living Australia (ALA) provides tools to enable users
+	   person("John","Baumgartner",role="ctb"),
+	   person("Tim","Foster",role="ctb"))
+Description: NBN Atlas provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
-    Australian plants and animals; these have been made available from
-    <http://ala.org.au/>. ALA4R provides a subset of the tools to be
-    directly used within R. It enables the R community to directly access data
-    and resources hosted by the ALA. Our goal is to enable outputs (e.g.
-    observations of species) to be queried and output in a range of standard
-    formats.
+    United Kingdom and Ireland plants and animals; these have been made available from
+    <https://nbnatlas.org/>. NBN4R provides a subset of the tools based on the ALA4R
+    package which can be directly used within R. It enables the R community to 
+    directly access data and resources hosted by the NBN. Our goal is to enable
+    outputs (e.g. observations of species) to be queried and output in a range of 
+    standard formats.
 Imports:
+    ALA4R,
     RCurl,
     assertthat,
     digest,
@@ -43,7 +45,7 @@ Suggests:
     testthat,
     vegan
 License: MPL-2.0
-URL: https://github.com/AtlasOfLivingAustralia/ALA4R
+URL: https://github.com/fozy81/ALA4R
 LazyLoad: yes
 LazyData: yes
 VignetteBuilder: knitr

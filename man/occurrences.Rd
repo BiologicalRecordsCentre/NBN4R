@@ -4,10 +4,7 @@
 \alias{occurrences}
 \title{Get occurrence data}
 \usage{
-occurrences(taxon, wkt, fq, fields, extra, qa, method = "indexed", email,
-  download_reason_id = ala_config()$download_reason_id, reason,
-  verbose = ala_config()$verbose, record_count_only = FALSE,
-  use_layer_names = TRUE, use_data_table = TRUE)
+occurrences(...)
 }
 \arguments{
 \item{taxon}{string: (optional) query of the form field:value (e.g. "genus:Macropus") or a free text search (e.g. "macropodidae"). Note that

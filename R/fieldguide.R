@@ -17,7 +17,7 @@
 #'   "http://id.biodiversity.org.au/node/apni/2890970"))
 #' }
 #'
-#' @export
+# @export
 fieldguide <- function(guids,title="Field guide",filename=tempfile(fileext=".pdf"),overwrite=FALSE) {
     if (missing(guids)) stop("one or more GUIDs must be supplied")
     if (is.list(guids)) guids <- unlist(guids)

@@ -4,8 +4,7 @@
 \alias{sites_by_species}
 \title{Sites by species}
 \usage{
-sites_by_species(taxon, wkt, gridsize = 0.1, SPdata.frame = FALSE,
-  verbose = ala_config()$verbose)
+sites_by_species(...)
 }
 \arguments{
 \item{taxon}{string: the identifier to get the species data from the ala biocache. E.g. "genus:Macropus". See \code{ala_fields("occurrence_stored")} for valid field names}
@@ -28,7 +27,7 @@ A data.frame is returned as grid cells by species with values in each cell being
 \dontrun{
 # Eucalyptus in Tasmania based on a 0.1 degree grid
 ss <- sites_by_species(taxon="genus:Eucalyptus",wkt="POLYGON((144 -43,148 -43,148 -40,
-  144 -40,144 -43))",gridsize=0.1,verbose=TRUE)
+144 -40,144 -43))",gridsize=0.1,verbose=TRUE)
 head(ss[,1:6])
 # equivalent direct POST webservice call:
 # https://layers.nbnatlas.org/alaspatial/ws/sitesbyspecies?speciesq=genus:Eucalyptus&qname=data&

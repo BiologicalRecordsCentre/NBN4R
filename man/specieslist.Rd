@@ -4,7 +4,7 @@
 \alias{specieslist}
 \title{Get list of taxa and their occurrence counts}
 \usage{
-specieslist(taxon, wkt, fq)
+specieslist(...)
 }
 \arguments{
 \item{taxon}{string: (optional) query of the form field:value (e.g. "genus:Macropus") or a free text search (e.g. "macropodidae").
@@ -31,12 +31,12 @@ NOTE March 2017: the response object might include records with missing taxonomi
 x <- specieslist(taxon="genus:Hakea",wkt="POLYGON((145 -37,150 -37,150 -30,145 -30,145 -37))")
 
 x <- specieslist(wkt="POLYGON((147.62 -42.83,147.60 -42.86,147.65 -42.87,147.70 -42.86,
-  147.62 -42.83))",fq="rank:species")
+147.62 -42.83))",fq="rank:species")
 
 x <- specieslist(wkt="POLYGON((145 -37,150 -37,150 -30,145 -30,145 -37))",fq="genus:Macropus")
 
 x <- specieslist(wkt="POLYGON((152.38 -30.43,152.5 -30.43,152.5 -30.5,152.38 -30.5,152.38 -30.43))",
-    fq="kingdom:Plantae")
+fq="kingdom:Plantae")
 ## NOTE that this response might include records with empty or NA kingdom, phylum, or
 ##  class values, as per the note above.
 }

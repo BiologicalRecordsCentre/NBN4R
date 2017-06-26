@@ -14,46 +14,8 @@
 #' str(s1,max.level=3)
 #' }
 #' @export occurrence_details
-
-occurrence_details <- function(uuid,verbose=ala_config()$verbose) {
-    if (!missing(uuid)) {
-        assert_that(is.character(uuid))
-    } else {
-        stop("uuid must be provided")
-    }
-    assert_that(is.flag(verbose))
-    non_empty <- nchar(uuid)>0 & !is.na(uuid)
-    this_url <- sapply(uuid[non_empty],function(z)build_url_from_parts(getOption("ALA4R_server_config")$base_url_biocache,paste0("occurrence/",z)))
-    out_non_empty <- lapply(this_url,function(z)cached_get(z,type="json",verbose=verbose))
-    out <- vector("list",length(uuid))
-    #if (is.null(out)) {
-    #    ## invalid guids will give NULL here, catch them now
-    #    if (ala_config()$warn_on_empty) {
-    #        warning("no results found")
-    #    }
-    #    return(list())
-                                        #}
-    non_empty_which <- which(non_empty)
-    for (k in 1:length(uuid)) {
-        if (non_empty[k]) {
-            out[k] <- out_non_empty[non_empty_which[k]]
-            if (is.null(out[[k]])) {
-                out[[k]] <- list()
-            } else {
-                ## some renaming of variables
-                if (!is.null(out[[k]]$processed$classification)) {
-                    try({
-                        tempcols<-setdiff(names(out[[k]]$processed$classification),unwanted_columns(type="general"))
-                        out[[k]]$processed$classification<-out[[k]]$processed$classification[tempcols]
-                        names(out[[k]]$processed$classification)<-str_replace_all(names(out[[k]]$processed$classification),"^classs","class")
-                        names(out[[k]]$processed$classification)<-rename_variables(names(out[[k]]$processed$classification),type="general")
-                    },silent=TRUE)
-                }
-            }
-        } else {
-            out[[k]] <- list()
-        }
-    }
-    names(out) <- uuid    
-    out
+occurrence_details <- function(...) {
+  
+  ALA4R::occurrence_details(...)
+  
 }

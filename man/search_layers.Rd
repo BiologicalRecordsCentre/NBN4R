@@ -4,7 +4,7 @@
 \alias{search_layers}
 \title{Search for environmental and contextual data layers}
 \usage{
-search_layers(query, type = "all", output_format = "simple")
+search_layers(...)
 }
 \arguments{
 \item{query}{text string: optional search term against layer metadata. Only layers that include this term in their metadata will be returned.}

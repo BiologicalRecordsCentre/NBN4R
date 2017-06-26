@@ -4,7 +4,7 @@
 \alias{occurrence_details}
 \title{Retrieve the full details of occurrence records}
 \usage{
-occurrence_details(uuid, verbose = ala_config()$verbose)
+occurrence_details(...)
 }
 \arguments{
 \item{uuid}{string: one or more record ids, as returned by \code{\link{occurrences}} (in the \code{data$id} column)}

@@ -4,8 +4,7 @@
 \alias{taxinfo_download}
 \title{Download taxonomic data}
 \usage{
-taxinfo_download(query, fq, fields, verbose = ala_config()$verbose,
-  use_data_table = TRUE)
+taxinfo_download(...)
 }
 \arguments{
 \item{query}{string: (optional) query of the form field:value (e.g. "genus:Macropus") or a free text search ("Alaba vibex")}
@@ -40,7 +39,7 @@ x <- taxinfo_download("rk_genus:Macropus")
 
 ## Data for Fabaceae with specified fields
 x <- taxinfo_download("rk_family:Fabaceae",fields=c("guid","parentGuid","rk_kingdom","rk_phylum",
-  "rk_class","rk_order","rk_family","rk_genus","scientificName"))
+"rk_class","rk_order","rk_family","rk_genus","scientificName"))
 # equivalent direct URL: http://bie.ala.org.au/ws/download?fields=guid,parentGuid,rk_kingdom,
 #    rk_phylum,rk_class,rk_order,rk_family,rk_genus,scientificName&q=rk_family:Fabaceae
 }

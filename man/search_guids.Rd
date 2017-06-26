@@ -4,8 +4,7 @@
 \alias{search_guids}
 \title{Lookup of species identifiers}
 \usage{
-search_guids(guids = c(), occurrence_count = FALSE,
-  output_format = "simple")
+search_guids(...)
 }
 \arguments{
 \item{guids}{string: a single GUID or vector of GUIDs}
@@ -24,9 +23,8 @@ Provides names, taxonomic classification, and other information for a list of GU
 \examples{
 \dontrun{
 search_guids(c("urn:lsid:biodiversity.org.au:afd.taxon:95773568-053d-44de-a624-5699f0ac4a59",
-  "http://id.biodiversity.org.au/node/apni/2890970","this_is_not_a_valid_guid"))
+"http://id.biodiversity.org.au/node/apni/2890970","this_is_not_a_valid_guid"))
 }
-
 }
 \references{
 The associated ALA web service: \url{https://api.nbnatlas.org/#ws87}

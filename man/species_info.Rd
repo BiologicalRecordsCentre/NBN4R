@@ -4,7 +4,7 @@
 \alias{species_info}
 \title{Fetch a taxon profile given a scientific name or LSID (GUID)}
 \usage{
-species_info(scientificname, guid, verbose = ala_config()$verbose)
+species_info(...)
 }
 \arguments{
 \item{scientificname}{string: scientific name of the taxon of interest (species, genus, family etc)}
