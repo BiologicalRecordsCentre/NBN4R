@@ -4,7 +4,7 @@
 \alias{search_layers}
 \title{Search for environmental and contextual data layers}
 \usage{
-search_layers(...)
+search_layers(query, type = "all", output_format = "simple")
 }
 \arguments{
 \item{query}{text string: optional search term against layer metadata. Only layers that include this term in their metadata will be returned.}
@@ -27,7 +27,7 @@ search_layers(type="shapes",query="coral",output_format="simple")
 }
 }
 \references{
-Associated ALA web services: \url{https://api.nbnatlas.org/#ws11} \url{https://api.nbnatlas.org/#ws12} \url{https://api.nbnatlas.org/#ws13}
+Associated NBN web services: \url{https://api.nbnatlas.org/#ws11} \url{https://api.nbnatlas.org/#ws12} \url{https://api.nbnatlas.org/#ws13}
 
 Descriptions of the spatial layers: \url{https://layers.nbnatlas.org/ws/layers})
 }

@@ -46,7 +46,7 @@
 }
 \description{
 Set of S3 methods to summarize, filter and get unique occurrence data retrieved using \code{\link{occurrences}}.
-This uses information based on selections of assertions (quality assurance issues ALA has identified), spatial and temporal data.
+This uses information based on selections of assertions (quality assurance issues NBN has identified), spatial and temporal data.
 }
 \details{
 \code{unique} will give the min value for all columns that are not used in the aggregation.
@@ -54,7 +54,7 @@ This uses information based on selections of assertions (quality assurance issue
 \examples{
 \dontrun{
 #download some observations
-x <- occurrences(taxon="Amblyornis newtonianus",download_reason_id=10)
+x <- occurrences(taxon="Leuctra geniculata",download_reason_id=10)
 
 #summarize the occurrences
 summary(x)

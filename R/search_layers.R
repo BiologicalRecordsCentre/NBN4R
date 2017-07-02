@@ -1,6 +1,6 @@
 #' Search for environmental and contextual data layers
 #' 
-#' @references Associated ALA web services: \url{https://api.nbnatlas.org/#ws11} \url{https://api.nbnatlas.org/#ws12} \url{https://api.nbnatlas.org/#ws13}
+#' @references Associated NBN web services: \url{https://api.nbnatlas.org/#ws11} \url{https://api.nbnatlas.org/#ws12} \url{https://api.nbnatlas.org/#ws13}
 #' @references Descriptions of the spatial layers: \url{https://layers.nbnatlas.org/ws/layers})
 #'
 #' @param query text string: optional search term against layer metadata. Only layers that include this term in their metadata will be returned.
@@ -15,8 +15,8 @@
 #' search_layers(type="shapes",query="coral",output_format="simple")
 #' }
 #' @export
-search_layers <- function(...) {
+search_layers <- function(query, type = "all", output_format = "simple") {
 
-ALA4R::search_layers(...)
+ALA4R::search_layers(query, type, output_format)
 
 }

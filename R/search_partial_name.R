@@ -1,8 +1,8 @@
 #' Partial-name search
 #' 
-#' A partial-name search for species names & identifiers used at the ALA. If searching for a taxon name, and the scientific name or common name of the taxon are known, use \code{\link{search_names}} instead.
+#' A partial-name search for species names & identifiers used at the NBN. If searching for a taxon name, and the scientific name or common name of the taxon are known, use \code{\link{search_names}} instead.
 #' 
-#' @references Associated ALA web service: \url{https://api.nbnatlas.org/#ws25}
+#' @references Associated NBN web service: \url{https://api.nbnatlas.org/#ws25}
 #' @seealso \code{\link{search_names}} for searching known scientific or common taxonomic names
 #' @param taxon string: part of the scientific, common name of the taxa
 #' @param geo_only logical: if TRUE, only results that have geospatial occurrence records will be included
@@ -19,8 +19,10 @@
 #' search_partial_name("Gallaba",geo_only=TRUE)
 #' }
 #' @export
-search_partial_name <- function(...) {
+search_partial_name <- function(taxon, geo_only = FALSE, output_format = "simple",
+                                index_type, limit) {
   
-  ALA4R::search_partial_name(...)
+  ALA4R::search_partial_name(taxon, geo_only, output_format,
+                             index_type, limit)
   
 }

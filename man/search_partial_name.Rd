@@ -4,7 +4,8 @@
 \alias{search_partial_name}
 \title{Partial-name search}
 \usage{
-search_partial_name(...)
+search_partial_name(taxon, geo_only = FALSE, output_format = "simple",
+  index_type, limit)
 }
 \arguments{
 \item{taxon}{string: part of the scientific, common name of the taxa}
@@ -21,7 +22,7 @@ search_partial_name(...)
 A dataframe of results. The contents (column names) of the data frame will vary depending on the details of the search and the results.
 }
 \description{
-A partial-name search for species names & identifiers used at the ALA. If searching for a taxon name, and the scientific name or common name of the taxon are known, use \code{\link{search_names}} instead.
+A partial-name search for species names & identifiers used at the NBN. If searching for a taxon name, and the scientific name or common name of the taxon are known, use \code{\link{search_names}} instead.
 }
 \examples{
 \dontrun{
@@ -33,7 +34,7 @@ search_partial_name("Gallaba",geo_only=TRUE)
 }
 }
 \references{
-Associated ALA web service: \url{https://api.nbnatlas.org/#ws25}
+Associated NBN web service: \url{https://api.nbnatlas.org/#ws25}
 }
 \seealso{
 \code{\link{search_names}} for searching known scientific or common taxonomic names

@@ -4,12 +4,12 @@
 \alias{occurrence_details}
 \title{Retrieve the full details of occurrence records}
 \usage{
-occurrence_details(...)
+occurrence_details(uuid, verbose = nbn_config()$verbose)
 }
 \arguments{
 \item{uuid}{string: one or more record ids, as returned by \code{\link{occurrences}} (in the \code{data$id} column)}
 
-\item{verbose}{logical: show additional progress information? [default is set by ala_config()]}
+\item{verbose}{logical: show additional progress information? [default is set by nbn_config()]}
 }
 \value{
 A named list (named by uuid), each element of which is a list containing the details for that uuid. This inner list will be empty if no match is found for the supplied uuid
@@ -19,13 +19,13 @@ Note that this makes a separate web request for each occurrence uuid, and so may
 }
 \examples{
 \dontrun{
-s1 <- occurrence_details("f259c5ce-200c-41a2-b73a-e36a91f748f7")
+s1 <- occurrence_details("00e11378-510a-41e4-beea-d8e4d1d9a001")
 str(s1,max.level=3)
 }
 }
 \references{
-Associated ALA web service: \url{https://api.nbnatlas.org/#ws102}
+Associated NBN web service: \url{https://api.nbnatlas.org/#ws102}
 }
 \seealso{
-\code{\link{occurrences}} \code{\link{ala_config}}
+\code{\link{occurrences}} \code{\link{nbn_config}}
 }

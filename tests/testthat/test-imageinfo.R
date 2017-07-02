@@ -21,10 +21,10 @@ check_caching(thischeck)
 thischeck=function() {
     test_that("image_info works as expected on known records", {
         skip_on_cran()
-        known_image_info=image_info("84654e14-dc35-4486-9e7c-40eb2f8d3faa")
+        known_image_info=image_info("eeadbb65-5509-4e55-9b3d-bd9bfb99f76c")
         expect_equal(nrow(known_image_info),1)
         expect_equal(sort(names(known_image_info)),expected_property_names)
-        known_image_info=image_info(c("84654e14-dc35-4486-9e7c-40eb2f8d3faa","39836d30-0761-473d-bac2-9ed9494fd37e"))
+        known_image_info=image_info(c("eeadbb65-5509-4e55-9b3d-bd9bfb99f76c","2f61274d-c397-4d24-ac9a-43fac921e43f"))
         expect_equal(nrow(known_image_info),2)
         expect_equal(sort(names(known_image_info)),expected_property_names)    
     })
@@ -34,7 +34,7 @@ check_caching(thischeck)
 thischeck=function() {    
     test_that("image_info works with un-matched records", {
         skip_on_cran()
-        mixed_image_info=image_info(c("84654e14-dc35-4486-9e7c-40eb2f8d3faa","this-is-an-invalid-image-id","39836d30-0761-473d-bac2-9ed9494fd37e","this-is-also-an-invalid-image-id"))
+        mixed_image_info=image_info(c("eeadbb65-5509-4e55-9b3d-bd9bfb99f76c","this-is-an-invalid-image-id","39836d30-0761-473d-bac2-9ed9494fd37e","this-is-also-an-invalid-image-id"))
         expect_equal(nrow(mixed_image_info),4)
         expect_equal(sort(names(mixed_image_info)),expected_property_names)
         unmatched_image_info=image_info("this-is-an-invalid-image-id")
@@ -48,7 +48,7 @@ check_caching(thischeck)
 thischeck=function() {
     test_that("image_info handles embedded html in property value td block", {    
         skip_on_cran()
-        expect_equal(sort(names(image_info("b8344134-254d-4116-a98d-4a37e7362a4e"))),expected_property_names)
+        expect_equal(sort(names(image_info("eeadbb65-5509-4e55-9b3d-bd9bfb99f76c"))),expected_property_names)
     })
 }
 check_caching(thischeck)
@@ -56,6 +56,13 @@ check_caching(thischeck)
 thischeck=function() {
     test_that("image_info gives error if id missing", {
         expect_error(image_info())
+    })
+}
+check_caching(thischeck)
+
+thischeck = function() {
+  test_that("image_info arguments in NBN4R package match arguments in ALA4R package", {
+     expect_named(formals(image_info),names(formals(ALA4R::image_info)),ignore.order = TRUE)
     })
 }
 check_caching(thischeck)

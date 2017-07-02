@@ -4,14 +4,14 @@
 \alias{image_info}
 \title{Fetch information about an image, given its image ID}
 \usage{
-image_info(...)
+image_info(id, image_number, verbose = nbn_config()$verbose)
 }
 \arguments{
 \item{id}{character: IDs of images (e.g. as returned by \code{\link{occurrences}}  in the imageUrl column). Each ID will be of a format something like "84654e14-dc35-4486-9e7c-40eb2f8d3faa"}
 
-\item{image_number}{character or numeric: ID numbers of images (e.g. as returned by ALA's image search at \url{https://images.nbnatlas.org/}. Each image_number will be of a format something like 122218480}
+\item{image_number}{character or numeric: ID numbers of images (e.g. as returned by NBN's image search at \url{https://images.nbnatlas.org/}. Each image_number will be of a format something like 122218480}
 
-\item{verbose}{logical: show additional progress information? [default is set by ala_config()]}
+\item{verbose}{logical: show additional progress information? [default is set by nbn_config()]}
 }
 \value{
 A data.frame with one row per \code{id}, and at least the columns imageIdentifier and imageURL
@@ -21,11 +21,16 @@ Note that there is currently no web service that provides image information, and
 }
 \examples{
 \dontrun{
-image_info(c("84654e14-dc35-4486-9e7c-40eb2f8d3faa",
-  "39836d30-0761-473d-bac2-9ed9494fd37e",
-  "this-is-an-invalid-image-id"))
+## Using IDs returned from occurrences() function
+
+image_info(id = c("eeadbb65-5509-4e55-9b3d-bd9bfb99f76c",
+  "2f61274d-c397-4d24-ac9a-43fac921e43f"))
+  
+## Using image numbers found on images.nbnatlas.org
+
+image_info(c(image_number=5881156))
 }
 }
 \seealso{
-\code{\link{ala_config}} \code{\link{occurrences}}
+\code{\link{nbn_config}} \code{\link{occurrences}}
 }

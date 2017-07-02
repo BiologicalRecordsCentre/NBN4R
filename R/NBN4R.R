@@ -1,12 +1,12 @@
-#' \pkg{ALA4R}
+#' \pkg{NBN4R}
 #'
 #' This project enables the R community to access data and tools hosted by the 
-#' Atlas of Living Australia. The goal of the project is 
-#' to enable basic species and related information to be queried and output in 
-#' standard formats for R. ALA4R is based around the extensive web services provided 
+#' NBN Atlas. The goal of the project is to enable basic species and related
+#' information to be queried and output in standard formats for R. 
+#' NBN4R is based around the extensive web services provided 
 #' by the Atlas; see the API link below.
 #' 
-#' @name ALA4R
+#' @name NBN4R
 #' @docType package
 #' @references \url{https://api.nbnatlas.org/}
 #' @import assertthat digest httr jsonlite plyr RCurl sp

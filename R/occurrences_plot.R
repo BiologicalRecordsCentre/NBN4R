@@ -22,14 +22,15 @@
 #' @examples
 #' \dontrun{ 
 #' #download some observations
-#' x <- occurrences(taxon="Eucalyptus gunnii",download_reason_id=10)
+#' x <- occurrences(taxon="Lutra lutra",download_reason_id=10)
 #' occurrences_plot(x)
-#' x <- occurrences(taxon="Cider Gum",download_reason_id=10)
-#' occurrences_plot(x,"alaPlot.pdf",qa="fatal",grouped=FALSE, taxon_level="species",pch='+')
+#' x <- occurrences(taxon="Mayfly",download_reason_id=10)
+#' occurrences_plot(x,"nbnPlot.pdf",qa="fatal",grouped=FALSE, taxon_level="species",pch='+')
 #' }
-#' @export occurrences_plot
-occurrences_plot <- function(...) {
+# @export occurrences_plot
+occurrences_plot <- function(x, filename = "Rplots.pdf", qa = c("fatal", "error"),
+                             grouped = FALSE, taxon_level = "species", pch, cex = 0.75, ...) {
   
-  ALA4R::occurrences_plot(...)
+  ALA4R::occurrences_plot(x, filename, qa,grouped, taxon_level, pch, cex, ...)
   
 }

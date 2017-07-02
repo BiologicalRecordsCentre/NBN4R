@@ -4,18 +4,18 @@
 [![CRAN Status](http://www.r-pkg.org/badges/version/ALA4R)](http://www.r-pkg.org/pkg/ALA4R)
 
 
-# ALA4R
+# NBN4R
 
-*NOTE, May 2017* --- some field (column) names in returned data objects may have changed with recent changes to the ALA infrastructure. These are liable to remain in flux but are being investigated.
+*NOTE, May 2017* --- some field (column) names in returned data objects may have changed with recent changes to the NBN infrastructure. These are liable to remain in flux but are being investigated.
 
 ----
 
 
-The Atlas of Living Australia (ALA) provides tools to enable users of biodiversity information to find, access, combine and visualise data on Australian plants and animals; these have been made available from http://www.ala.org.au/. Here we provide a subset of the tools to be directly used within R.
+The National Biodiversity Network (NBN) Atlas provides tools to enable users of biodiversity information to find, access, combine and visualise data on UK and Ireland plants and animals; these have been made available from https://nbnatlas.org/. Here we provide a subset of the tools to be directly used within R.
 
-ALA4R enables the R community to directly access data and resources hosted by the ALA. Our goal is to enable outputs (e.g. observations of species) to be queried and output in a range of standard formats.
+NBN4R enables the R community to directly access data and resources hosted by the ALA. Our goal is to enable outputs (e.g. observations of species) to be queried and output in a range of standard formats. This tool is built on the Atlas of Living Australia (ALA4R) package which provides similar services for the Australian Atlas. Both NBN and ALA share similar Application Protocol Interface (AP)I web services. NBN4R wraps ALA4R functions but redirects requests to NBN web servers.
 
-The use-examples presented at the [2014 ALA Science Symposium](http://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/) are available in the package vignette, via (in R): `vignette("ALA4R")`, and are also copied below.
+The use-examples based on ALA4R are presented at the [2014 ALA Science Symposium](http://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/) are available in the package vignette, via (in R): `vignette("NBN4R")`, and a modifed version below.
 
 
 ## Installing ALA4R
@@ -23,12 +23,6 @@ The use-examples presented at the [2014 ALA Science Symposium](http://www.ala.or
 ### Windows
 
 In R:
-
-Stable version from CRAN:
-
-```R
-install.packages("ALA4R")
-```
 
 Or the development version from GitHub:
 
@@ -44,7 +38,7 @@ If you see an error about a missing package, you will need to install it manuall
 ```R
 install.packages(c("stringr","sp"))
 ```
-and then `install_github("AtlasOfLivingAustralia/ALA4R")` again.
+and then `install_github("fozy81/NBN4R")` again.
 
 
 If you wish to use the `data.table` package for potentially faster loading of data matrices (optional), also do:
@@ -63,18 +57,12 @@ or install `libcurl4-openssl-dev` via the Software Centre.
 
 Then, in R:
 
-Stable version from CRAN:
-
-```{r eval=FALSE}
-install.packages("ALA4R")
-```
-
 Or the development version from GitHub:
 
 ```{r eval=FALSE}
 install.packages("devtools")
 library(devtools)
-install_github("AtlasOfLivingAustralia/ALA4R")
+install_github("fozy81/NBN4R")
 ```
 
 You may see a warning about the `Rtools` package: you don't need to install this. You may also be asked about a location for the `R.cache` directory --- choose whatever you prefer here, ALA4R does not use `R.cache`.
@@ -95,21 +83,21 @@ install.packages("data.table")
 ## Using ALA4R
 The ALA4R package must be loaded for each new R session:
 ```R
-library(ALA4R)
+library(NBN4R)
 ```
 
 ##Customizing ALA4R
-Various aspects of the ALA4R package can be customized.
+Various aspects of the NBN4R package can be customized.
 
 ###Caching
 ALA4R can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
 By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
 ```R
-ala_config(cache_directory <- file.path("c:","mydata","ala_cache")) ## Windows
+nbn_config(cache_directory <- file.path("c:","mydata","nbn_cache")) ## Windows
 ```
 or for Linux:
 ```R
-ala_config(cache_directory <- file.path("~","mydata","ala_cache")) ## Linux
+nbn_config(cache_directory = "~/mydata/ala_cache") ## Linux
 ```
 Note that this directory must exist (you need to create it yourself).
 
@@ -117,12 +105,12 @@ All results will be stored in that cache directory and will be used from one ses
 
 If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the ALA4R package is loaded:
 ```R
-setHook(packageEvent("ALA4R", "attach"), 
-function(...) ala_config(cache_directory=file.path("~","mydata","ala_cache")))
+setHook(packageEvent("NBN4R", "attach"), 
+function(...) nbn_config(cache_directory=file.path("~","mydata","ala_cache")))
 ```
 Caching can also be turned off entirely by:
 ```R
-ala_config(caching="off")
+nbn_config(caching="off")
 ```
 or set to “refresh”, meaning that the cached results will re-downloaded from the ALA servers and the cache updated. (This will happen for as long as caching is set to “refresh” — so you may wish to switch back to normal “on” caching behaviour once you have updated your cache with the data you are working on).
 
@@ -131,30 +119,30 @@ Each request to the ALA servers is accompanied by a “user-agent” string that
 
 *NO* personal identification information is sent. You can see all configuration settings, including the the user-agent string that is being used, with the command:
 ```R
-ala_config()
+nbn_config()
 ```
 
 ###Debugging
 If things aren’t working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the verbose configuration option:
 ```R
-ala_config(verbose=TRUE)
+nbn_config(verbose=TRUE)
 ```
 
 ### Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data (via the ALA4R `occurrences()` function). You can provide this as a parameter directly to each call of `occurrences()`, or you can set it once per session using:
 
 ```R
-ala_config(download_reason_id=your_reason_id)
+nbn_config(download_reason_id=your_reason_id)
 ```
 
-(See `ala_reasons()` for valid download reasons)
+(See `nbn_reasons()` for valid download reasons)
 
 
 ### Other options
 If you make a request that returns an empty result set (e.g. an un-matched name), by default you will simply get an empty data structure returned to you without any special notification. If you would like to be warned about empty result sets, you can use:
 
 ```R
-ala_config(warn_on_empty=TRUE)
+nbn_config(warn_on_empty=TRUE)
 ```
 
 ##Examples
@@ -179,25 +167,25 @@ library(phytools)
 
 We want to look at the taxonomic tree of penguins, but we don’t know what the correct scientific name is, so let’s search for it:
 ```R
-sx <- search_fulltext("penguins")
+sx <- search_fulltext("kingfisher")
 (sx$data[,c("name","rank")])
 ```
 ```
-##                      name    rank
-## 1                penguins    <NA>
-## 2                Penguins    <NA>
-## 3                Penguins    <NA>
-## 4            Spheniscidae  family
-## 5            SPHENISCIDAE  family
-## 6  Eudyptes pachyrhynchus species
-## 7     Eudyptes chrysocome species
-## 8    Megadyptes antipodes species
-## 9   Eudyptes chrysolophus species
-## 10      Eudyptes moseleyi species
+#                  name    rank
+# 1       Alcedo atthis species
+# 2  Felicia bergeriana species
+# 3   Megaceryle alcyon species
+# 4          Kingfisher    <NA>
+# 5          Kingfisher    <NA>
+# 6          Kingfisher    <NA>
+# 7      Kingfisher Way    <NA>
+# 8      Kingfisher Way    <NA>
+# 9      Kingfisher Way    <NA>
+# 10  Kingfisher Street    <NA>
 ```
 And we can see that penguins correspond to the family Spheniscidae. There are (at the time of writing this vignette) two results: one "Spheniscidae" and the other "SPHENISCIDAE" (identical except all upper case). The first comes from the New Zealand Organism Register and represents extinct penguins. We want the other one ("SPHENISCIDAE"). Now we can download the taxonomic data (note that the search is case-sensitive):
 ```R
-tx <- taxinfo_download("rk_family:SPHENISCIDAE",fields=c("guid","rk_genus","scientificName","rank"))
+tx <- taxinfo_download("rk_family:Vespertilionidae",fields=c("guid","rk_genus","scientificName","rank"))
 tx <- tx[tx$rank %in% c("species","subspecies"),] ## restrict to species and subspecies
 ```
 We can make a taxonomic tree plot using the `phytools` package:
@@ -219,7 +207,7 @@ And for each of those species profiles, download the thumbnail image and store i
 
 ```R
 imfiles <- sapply(s$thumbnailUrl,function(z){ 
-  ifelse(!is.na(z),ALA4R:::cached_get(z,type="binary_filename"),"") 
+  ifelse(!is.na(z),NBN4R:::cached_get(z,type="binary_filename"),"") 
 })
 ```
 And finally, plot the tree:
@@ -234,120 +222,30 @@ for (k in which(nchar(imfiles)>0))
 
 ![Alt text](./vignettes/images/figure-01.png?raw=true "plot of chunk unnamed-chunk-21")
 
-###Example 2: Area report: what listed species exist in a given area?
-First download an example shapefile of South Australian conservation reserve boundaries: see http://data.sa.gov.au/dataset/conservation-reserve-boundaries. We use the ALA4R’s caching mechanism here, but you could equally download this file directly.
-```R
-library(maptools)
-shape_filename <- ALA4R:::cached_get(
-  "https://data.environment.sa.gov.au/NatureMaps/Documents/CONSERVATION_Npwsa_Reserves_shp.zip",
-  type="binary_filename")
-unzip(shape_filename,exdir=ala_config()$cache_directory) ## unzip this file
-shape <- readShapePoly(file.path(ala_config()$cache_directory,
-  "CONSERVATION_NpwsaReserves.shp"))
-## extract just the Morialta Conservation Park polygon
-shape <- shape[shape$RESNAME=="Morialta",]
-```
-We could create the WKT string using the `rgeos` library:
-```R
-library(rgeos)
-wkt <- writeWKT(shape)
-```
-
-Unfortunately, in this instance this gives a WKT string that is too long and won’t be accepted by the ALA web service. Instead, let’s construct the WKT string directly, which gives us a little more control over its format:
-```R
-lonlat <- shape@polygons[[1]]@Polygons[[1]]@coords ## extract the polygon coordinates
-## extract the convex hull of the polygon to reduce the length of the WKT string
-temp <- chull(lonlat)
-lonlat <- lonlat[c(temp,temp[1]),] 
-## create WKT string
-wkt <- paste("POLYGON((",paste(apply(lonlat,1,function(z)
-  paste(z,collapse=" ")),collapse=","),"))",sep="")
-```
-Now extract the species list in this polygon, filtering to only include those with a conservation status:
-```R
-x <- specieslist(wkt=wkt,fq="state_conservation:*")
-(head(arrange(x,desc(occurrenceCount)),20))
-```
-```
-##                                                               taxonConceptLsid
-## 1  urn:lsid:biodiversity.org.au:afd.taxon:e7873288-a90c-4f20-8be1-e8ec69a074a5
-## 2                               urn:lsid:biodiversity.org.au:apni.taxon:305417
-## 3                               urn:lsid:biodiversity.org.au:apni.taxon:546061
-## 4  urn:lsid:biodiversity.org.au:afd.taxon:6246cb3a-04c4-4ae5-995a-5ecef8250d6c
-## 5                               urn:lsid:biodiversity.org.au:apni.taxon:126854
-## 6  urn:lsid:biodiversity.org.au:afd.taxon:c3e68140-6469-4e00-a33e-de700d1f16f3
-## 7  urn:lsid:biodiversity.org.au:afd.taxon:4273bd9a-f874-4a33-b1f0-3633abfdc5c8
-## 8                               urn:lsid:biodiversity.org.au:apni.taxon:247099
-## 9  urn:lsid:biodiversity.org.au:afd.taxon:3bd1346d-05ce-4626-8004-bed2b12ef0a8
-## 10                              urn:lsid:biodiversity.org.au:apni.taxon:148311
-## 11 urn:lsid:biodiversity.org.au:afd.taxon:0feaa88d-37f2-4a48-9f72-111d946234a6
-## 12 urn:lsid:biodiversity.org.au:afd.taxon:b58b9afe-8499-425c-9dae-ce392c4f673f
-## 13                              urn:lsid:biodiversity.org.au:apni.taxon:247780
-## 14                              urn:lsid:biodiversity.org.au:apni.taxon:307536
-## 15                              urn:lsid:biodiversity.org.au:apni.taxon:297676
-## 16 urn:lsid:biodiversity.org.au:afd.taxon:32c47021-3054-431b-9399-62d344e1fdf3
-## 17                              urn:lsid:biodiversity.org.au:apni.taxon:269318
-## 18                              urn:lsid:biodiversity.org.au:apni.taxon:285704
-## 19                              urn:lsid:biodiversity.org.au:apni.taxon:453243
-## 20                              urn:lsid:biodiversity.org.au:apni.taxon:483502
-##    occurrenceCount
-## 1              289
-## 2               50
-## 3               35
-## 4               27
-## 5               25
-## 6               23
-## 7               20
-## 8               17
-## 9               16
-## 10              15
-## 11              12
-## 12              11
-## 13              11
-## 14               8
-## 15               7
-## 16               6
-## 17               6
-## 18               6
-## 19               6
-## 20               6
-```
-
-###Example 3: Quality assertions
+###Example 2: Quality assertions
 Data quality assertions are a suite of fields that are the result of a set of tests peformed on ALA data. Download occurrence data for the golden bowerbird:
 ```R
-x <- occurrences(taxon="Amblyornis newtonianus", download_reason_id=10)
+x <- occurrences(taxon="Callitriche obtusangula", download_reason_id=10)
 summary(x)
 ```
 ```
-## number of names: 7 
-## number of taxonomically corrected names: 1 
-## number of observation records: 881 
-## number of assertions listed: 18  -- ones with flagged issues are listed below
-##  invalidCollectionDate: 119 records 
-##  incompleteCollectionDate: 159 records 
-##  firstOfCentury: 4 records 
-##  detectedOutlier: 14 records -- considered fatal
-##  uncertaintyRangeMismatch: 12 records 
-##  firstOfYear: 26 records 
-##  altitudeInFeet: 2 records 
-##  geodeticDatumAssumedWgs84: 619 records 
-##  speciesOutsideExpertRange: 14 records -- considered fatal
-##  decimalLatLongConverted: 5 records 
-##  coordinatePrecisionMismatch: 18 records 
-##  countryInferredByCoordinates: 455 records 
-##  invalidImageUrl: 1 records 
-##  unrecognizedGeodeticDatum: 105 records 
-##  inferredDuplicateRecord: 134 records 
-##  stateCoordinateMismatch: 1 records 
-##  habitatMismatch: 14 records -- considered fatal
-##  firstOfMonth: 65 records
+# number of original names: 2 
+# number of taxonomically corrected names: 1 
+# number of observation records: 1319 
+# number of assertions listed: 9  -- ones with flagged issues are listed below
+# 	invalidCollectionDate: 1 records 
+# 	incompleteCollectionDate: 1 records 
+# 	precisionRangeMismatch: 1040 records 
+# 	firstOfYear: 338 records 
+# 	unknownCountry: 474 records 
+# 	countryInferredByCoordinates: 806 records 
+# 	decimalLatLongCalculatedFromGridReference: 1298 records 
+# 	assumedPresentOccurrenceStatus: 992 records 
+# 	firstOfMonth: 479 records 
 ```
-You can see that some of the points have assertions that are considered “fatal” (i.e. the occurrence record in question is unlikely to be suitable for subsequent analysis). We can use the `occurrences_plot` function to create a PDF file with a plot of this data, showing the points with fatal assertions (this will create an “Rplots.pdf” file in your working directory; not run here):
-```R
-occurrences_plot(x,qa="fatal")
-```
+
 There are many other ways of producing spatial plots in R. The `leaflet` package provides a simple method of producing browser-based maps iwth panning, zooming, and background layers:
+
 ```R
 library(leaflet)
 ## drop any records with missing lat/lon values
@@ -382,8 +280,8 @@ library(geosphere)
 ```
 Define our area of interest as a transect running westwards from the Sydney region, and download the occurrences of legumes (Fabaceae; a large family of flowering plants) in this area:
 ```R
-wkt <- "POLYGON((152.5 -35,152.5 -32,140 -32,140 -35,152.5 -35))"
-x <- occurrences(taxon="family:Fabaceae",wkt=wkt,qa="none",download_reason_id=10)
+wkt <- "POLYGON((-3 56,-4 56,-4 -57,-3 57,-3 56))"
+x <- occurrences(taxon="genus:macropus",wkt=wkt,qa="none",download_reason_id=10)
 x <- x$data ## just take the data component
 ```
 Bin the locations into 0.5-degree grid cells:

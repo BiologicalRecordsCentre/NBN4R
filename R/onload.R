@@ -12,14 +12,15 @@
   ## incorporated in NBN4R
 
   temp$brand <- "NBN4R" ## the package name that is shown to users in messages and warnings
+  temp$support_email <- "support@nbn.org.uk"
   temp$max_occurrence_records = 500000
   temp$server_max_url_length = 8150 ## bytes, for Apache with default LimitRequestLine value of 8190, allowing 40 bytes wiggle room. Users will be warned of possible problems when URL exceeds this length
-  temp$notify = "If this problem persists please notify the ALA4R maintainers by lodging an issue at https://github.com/AtlasOfLivingAustralia/ALA4R/issues/ or emailing support@ala.org.au" ## the string that will be displayed to users to notify the package maintainers
-  temp$support_email = "support@ala.org.au" ## contact email
+  temp$notify <- "If this problem persists please notify the NBN4R maintainers by lodging an issue at NBN4R github repo or emailing support@nbn.org.uk" ## the string that will be displayed to users to notify the package maintainers
+  temp$support_email <- "support@nbn.org.uk" ## contact email
   temp$reasons_function = "ala_reasons" ## the ala_reasons or equivalent function name
-  temp$fields_function = "ala_fields" ## the ala_fields or equivalent function name
+  temp$fields_function = "nbn_fields" ## the nbn_fields or equivalent function name
   temp$occurrences_function = "occurrences" ## the occurrences or equivalent function name
-  temp$config_function = "ala_config" ## the ala_config or equivalent function name
+  temp$config_function = "nbn_config" ## the ala_config or equivalent function name
   temp$base_url_spatial = "https://layers.nbnatlas.org/ws" ## the base url for spatial web services
   temp$base_url_bie = "https://species-ws.nbnatlas.org/" ## the base url for BIE web services
   temp$base_url_biocache = "https://records-ws.nbnatlas.org/" ## Services for mapping occurrence data, and species breakdowns for geographic areas.

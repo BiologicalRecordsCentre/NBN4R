@@ -4,11 +4,10 @@
 \alias{occurrences_plot}
 \title{Quick geographic plot of occurrence data}
 \usage{
-occurrences_plot(...)
+occurrences_plot(x, filename = "Rplots.pdf", qa = c("fatal", "error"),
+  grouped = FALSE, taxon_level = "species", pch, cex = 0.75, ...)
 }
 \arguments{
-\item{\dots}{: other options passed to pdf()}
-
 \item{x}{list: a list object that has been downloaded using \code{\link{occurrences}}}
 
 \item{filename}{string: name of file to be created; defaults to RPlots.pdf}
@@ -26,6 +25,8 @@ maps for the taxon level defined.}
 \item{pch}{single number or character representing point type. See description of \code{pch} in \code{\link{points}}.}
 
 \item{cex}{numeric: character (or symbol) expansion. See description of \code{cex} in \code{\link{points}}.}
+
+\item{\dots}{: other options passed to pdf()}
 }
 \value{
 Generates a pdf that maps the distributions.
@@ -37,10 +38,10 @@ an Australian basemap and colours the occurrence records dots according to param
 \examples{
 \dontrun{ 
 #download some observations
-x <- occurrences(taxon="Eucalyptus gunnii",download_reason_id=10)
+x <- occurrences(taxon="Lutra lutra",download_reason_id=10)
 occurrences_plot(x)
-x <- occurrences(taxon="Cider Gum",download_reason_id=10)
-occurrences_plot(x,"alaPlot.pdf",qa="fatal",grouped=FALSE, taxon_level="species",pch='+')
+x <- occurrences(taxon="Mayfly",download_reason_id=10)
+occurrences_plot(x,"nbnPlot.pdf",qa="fatal",grouped=FALSE, taxon_level="species",pch='+')
 }
 }
 \references{
