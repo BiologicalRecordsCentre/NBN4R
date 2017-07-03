@@ -14,7 +14,7 @@ NBN4R enables the R community to directly access data and resources hosted by th
 
 The use-examples based on ALA4R are presented at the [2014 ALA Science Symposium](http://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/) are available in the package vignette, via (in R): `vignette("NBN4R")`, and a draft modifed version using NBN data is below.
 
-## Installing ALA4R
+## Installing NBN4R
 
 ### Windows
 
@@ -25,10 +25,10 @@ Or the development version from GitHub:
 ```R
 install.packages("devtools")
 library(devtools)
-install_github("AtlasOfLivingAustralia/ALA4R")
+install_github("fozy81/NBN4R")
 ```
 
-You may see a warning about the `Rtools` package: you don't need to install this. You may also be asked about a location for the `R.cache` directory --- choose whatever you prefer here, ALA4R does not use `R.cache`.
+You may see a warning about the `Rtools` package: you don't need to install this. You may also be asked about a location for the `R.cache` directory --- choose whatever you prefer here, NBN4R does not use `R.cache`.
 
 If you see an error about a missing package, you will need to install it manually, e.g.:
 ```R
@@ -60,13 +60,13 @@ library(devtools)
 install_github("fozy81/NBN4R")
 ```
 
-You may see a warning about the `Rtools` package: you don't need to install this. You may also be asked about a location for the `R.cache` directory --- choose whatever you prefer here, ALA4R does not use `R.cache`.
+You may see a warning about the `Rtools` package: you don't need to install this. You may also be asked about a location for the `R.cache` directory --- choose whatever you prefer here, NBN4R does not use `R.cache`.
 
 If you see an error about a missing package, you will need to install it manually, e.g.:
 ```R
 install.packages(c("stringr","sp"))
 ```
-and then try installing ALA4R again.
+and then try installing NBN4R again.
 
 
 If you wish to use the `data.table` package for potentially faster loading of data matrices (optional), also do:
@@ -74,42 +74,42 @@ If you wish to use the `data.table` package for potentially faster loading of da
 install.packages("data.table")
 ```
 
-## Using ALA4R
-The ALA4R package must be loaded for each new R session:
+## Using NBNR
+The NBN4R package must be loaded for each new R session:
 ```R
 library(NBN4R)
 ```
 
-##Customizing ALA4R
+##Customizing NBN4R
 Various aspects of the NBN4R package can be customized.
 
 ###Caching
-ALA4R can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
+NBN4R can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the NBN servers.
 By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
 ```R
 nbn_config(cache_directory <- file.path("c:","mydata","nbn_cache")) ## Windows
 ```
 or for Linux:
 ```R
-nbn_config(cache_directory = "~/mydata/ala_cache") ## Linux
+nbn_config(cache_directory = "~/mydata/nbn_cache") ## Linux
 ```
 Note that this directory must exist (you need to create it yourself).
 
 All results will be stored in that cache directory and will be used from one session to the next. They won’t be re-downloaded from the server unless the user specifically deletes those files or changes the caching setting to “refresh”.
 
-If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the ALA4R package is loaded:
+If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the NBN4R package is loaded:
 ```R
 setHook(packageEvent("NBN4R", "attach"), 
-function(...) nbn_config(cache_directory=file.path("~","mydata","ala_cache")))
+function(...) nbn_config(cache_directory=file.path("~","mydata","nbn_cache")))
 ```
 Caching can also be turned off entirely by:
 ```R
 nbn_config(caching="off")
 ```
-or set to “refresh”, meaning that the cached results will re-downloaded from the ALA servers and the cache updated. (This will happen for as long as caching is set to “refresh” — so you may wish to switch back to normal “on” caching behaviour once you have updated your cache with the data you are working on).
+or set to “refresh”, meaning that the cached results will re-downloaded from the NBN servers and the cache updated. (This will happen for as long as caching is set to “refresh” — so you may wish to switch back to normal “on” caching behaviour once you have updated your cache with the data you are working on).
 
 ###User-agent string
-Each request to the ALA servers is accompanied by a “user-agent” string that identifies the software making the request. This is a standard behaviour used by web browsers as well. The user-agent identifies the user requests to the ALA, helping the ALA to adapt and enhance the services that it provides. By default, the ALA4R user-agent string is set to “ALA4R” plus the ALA4R version number (e.g. “ALA4R 1.5.2”).
+Each request to the NBN servers is accompanied by a “user-agent” string that identifies the software making the request. This is a standard behaviour used by web browsers as well. The user-agent identifies the user requests to the NBN, helping the NBN to adapt and enhance the services that it provides. By default, the NBN4R user-agent string is set to “NBN4R” plus the NBN4R version number (e.g. “NBN4R 1.0”).
 
 *NO* personal identification information is sent. You can see all configuration settings, including the the user-agent string that is being used, with the command:
 ```R
@@ -123,7 +123,7 @@ nbn_config(verbose=TRUE)
 ```
 
 ### Setting the download reason
-ALA requires that you provide a reason when downloading occurrence data (via the ALA4R `occurrences()` function). You can provide this as a parameter directly to each call of `occurrences()`, or you can set it once per session using:
+NBN requires that you provide a reason when downloading occurrence data (via the NBN4R `occurrences()` function). You can provide this as a parameter directly to each call of `occurrences()`, or you can set it once per session using:
 
 ```R
 nbn_config(download_reason_id=your_reason_id)
@@ -217,7 +217,7 @@ for (k in which(nchar(imfiles)>0))
 ![Alt text](./vignettes/images/treeplot2.png?raw=true "plot of finches images")
 
 ###Example 2: Quality assertions
-Data quality assertions are a suite of fields that are the result of a set of tests peformed on ALA data. Download occurrence data for the Blunt-fruited Water-starwort:
+Data quality assertions are a suite of fields that are the result of a set of tests peformed on NBN data. Download occurrence data for the Blunt-fruited Water-starwort:
 ```R
 x <- occurrences(taxon="Callitriche obtusangula", download_reason_id=10)
 summary(x)
@@ -246,13 +246,13 @@ library(leaflet)
 x$data <- x$data[!is.na(x$data$longitude) & !is.na(x$data$latitude),] 
 xa <- check_assertions(x)
 ## columns of x corresponding to a fatal assertion
-x_afcols <- which(names(x$data) %in% xa$occurColnames[xa$fatal])
+x_afcols <- which(names(x$data) %in% xa$occurColnames[xa$taxonIdentificationIssue])
 ## rows of x that have a fatal assertion
 x_afrows <- apply(x$data[,x_afcols],1,any)
-## which fatal assertions are present in this data?
+## which taxonIdentificationIssue assertions are present in this data?
 these_assertions <- names(x$data)[x_afcols]
-## make a link to th web page for each occurrence
-popup_link <- paste0("<a href=\"http://biocache.ala.org.au/occurrences/",x$data$id,"\">Link to occurrence record</a>")
+## make a link to the web page for each occurrence
+popup_link <- paste0("<a href=\"https://records.nbnatlas.org/occurrences/",x$data$id,"\">Link to occurrence record</a>")
 ## colour palette
 pal <- c(sub("FF$","",heat.colors(length(these_assertions))))
 ## map each data row to colour, depending on its assertions
@@ -283,7 +283,7 @@ Bin the locations into 0.5-degree grid cells:
 x$longitude <- round(x$longitude*100)/100
 x$latitude <- round(x$latitude*100)/100
 ```
-Create a sites-by-species data frame. This could also be done with e.g. the reshape library or the table() function, or indeed directly from ALA4R’s `species_by_site` function. Note: this process inherently makes some strong assumptions about absences in the data.
+Create a sites-by-species data frame. This could also be done with e.g. the reshape library or the table() function, or indeed directly from NBN4R’s `species_by_site` function. Note: this process inherently makes some strong assumptions about absences in the data.
 ```R
 ## discard genus- and higher-level records
 xsub <- x$rank %in% c("species","subspecies","variety","form","cultivar")
