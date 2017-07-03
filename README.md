@@ -160,27 +160,27 @@ library(ape)
 library(phytools)
 ```
 
-We want to look at the taxonomic tree of penguins, but we don’t know what the correct scientific name is, so let’s search for it:
+We want to look at the taxonomic finches, but we don’t know what the correct scientific name is, so let’s search for it:
 ```R
-sx <- search_fulltext("kingfisher")
-(sx$data[,c("name","rank")])
+sx <- search_fulltext("Finch")
+(sx$data[,c("name","rank","family")])
 ```
 ```
-#                  name    rank
-# 1       Alcedo atthis species
-# 2  Felicia bergeriana species
-# 3   Megaceryle alcyon species
-# 4          Kingfisher    <NA>
-# 5          Kingfisher    <NA>
-# 6          Kingfisher    <NA>
-# 7      Kingfisher Way    <NA>
-# 8      Kingfisher Way    <NA>
-# 9      Kingfisher Way    <NA>
-# 10  Kingfisher Street    <NA>
+                      name    rank       family
+1              Diuca diuca species  Emberizidae
+2         Sicalis flaveola species  Emberizidae
+3     Rhodopechys obsoleta species Fringillidae
+4     Carduelis citrinella species Fringillidae
+5     Carpodacus mexicanus species Fringillidae
+6  Paludipasser locustella species  Estrildidae
+7         Poephila guttata species  Estrildidae
+8    Bucanetes githagineus species Fringillidae
+9         Amadina fasciata species  Estrildidae
+10  Montifringilla nivalis species   Passeridae
 ```
-And we can see that penguins correspond to the family Spheniscidae. There are (at the time of writing this vignette) two results: one "Spheniscidae" and the other "SPHENISCIDAE" (identical except all upper case). The first comes from the New Zealand Organism Register and represents extinct penguins. We want the other one ("SPHENISCIDAE"). Now we can download the taxonomic data (note that the search is case-sensitive):
+And we can see that violets correspond to a number of families. We want to use Estrildidae. Now we can download the taxonomic data (note that the search is case-sensitive):
 ```R
-tx <- taxinfo_download("rk_family:Vespertilionidae",fields=c("guid","rk_genus","scientificName","rank"))
+tx <- taxinfo_download("rk_family:Estrildidae",fields=c("guid","rk_genus","scientificName","rank"))
 tx <- tx[tx$rank %in% c("species","subspecies"),] ## restrict to species and subspecies
 ```
 We can make a taxonomic tree plot using the `phytools` package:
@@ -189,16 +189,16 @@ We can make a taxonomic tree plot using the `phytools` package:
 temp <- colwise(factor, c("genus","scientificName"))(tx)
 ## create phylo object of Scientific.Name nested within Genus
 ax <- as.phylo(~genus/scientificName,data=temp)
-plotTree(ax,type="fan",fsize=0.7) ## plot it
+plotTree(ax,type="fan",fsize=0.7,ftype="i") ## plot it
 ```
 
-![Alt text](./vignettes/images/figure-00.png?raw=true "plot of chunk unnamed-chunk-18")
+![Alt text](./vignettes/images/treeplot1.png?raw=true "plot of finches")
 
-We can also plot the tree with images of the different penguin species. We’ll first extract a species profile for each species identifier (guid) in our results:
+We can also plot the tree with images of the different finches species. We’ll first extract a species profile for each species identifier (guid) in our results:
 ```R
 s <- search_guids(tx$guid)
 ```
-And for each of those species profiles, download the thumbnail image and store it in our data cache:
+And for each of those species profiles, download the thumbnail image and store it in our data cache. Unforunately, not all species have a image available. You can browse available images on the NBN Atlas [images](https://images.nbnatlas.org/). 
 
 ```R
 imfiles <- sapply(s$thumbnailUrl,function(z){ 
@@ -215,10 +215,10 @@ for (k in which(nchar(imfiles)>0))
         rasterImage(readJPEG(imfiles[k]),tr$xx[k]-1/10,tr$yy[k]-1/10,tr$xx[k]+1/10,tr$yy[k]+1/10)
 ```
 
-![Alt text](./vignettes/images/figure-01.png?raw=true "plot of chunk unnamed-chunk-21")
+![Alt text](./vignettes/images/treeplot2.png?raw=true "plot of finches images")
 
 ###Example 2: Quality assertions
-Data quality assertions are a suite of fields that are the result of a set of tests peformed on ALA data. Download occurrence data for the golden bowerbird:
+Data quality assertions are a suite of fields that are the result of a set of tests peformed on ALA data. Download occurrence data for the Blunt-fruited Water-starwort:
 ```R
 x <- occurrences(taxon="Callitriche obtusangula", download_reason_id=10)
 summary(x)
@@ -305,8 +305,6 @@ plot(xgridded$longitude,apply(xgridded[,-c(1:2)],1,sum),ylab="Richness",
   xlab="Longitude",pch=20,col="grey25")
 ```
 
-![Alt text](./vignettes/images/figure-02.png?raw=true "plot of chunk unnamed-chunk-36")
-
 The number of species is highest at the eastern end of the transect. This probably reflects both higher species richness as well as greater sampling effort in this area compared to the western end of the transect.
 
 How does the community composition change along the transect? Calculate the dissimilarity between nearby grid cells as a function of along-transect position:
@@ -328,15 +326,12 @@ fitp <- predict(fit,newdata=data.frame(tp=tpp))
 lines(tpp,fitp,col=1)
 ```
 
-![Alt text](./vignettes/images/figure-03.png?raw=true "plot of chunk unnamed-chunk-37")
 
 Clustering:
 ```R
 cl <- hclust(D,method="ave") ## UPGMA clustering
 plot(cl) ## plot dendrogram
 ```
-
-![Alt text](./vignettes/images/figure-04.png?raw=true "plot of chunk unnamed-chunk-38")
 
 ```R
 grp <- cutree(cl,9) ## extract group labels at the 20-group level
@@ -348,7 +343,6 @@ grp <- sapply(grp,function(z)which(unique(grp)==z)) ## renumber groups
 with(xgridded,plot(longitude,latitude,pch=21,col=grp,bg=grp))
 ```
 
-![Alt text](./vignettes/images/figure-05.png?raw=true "plot of chunk unnamed-chunk-38")
 
 ```R
 ## or slightly nicer map plot
@@ -360,4 +354,4 @@ thiscol <- c("#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b",
 with(xgridded,points(longitude,latitude,pch=21,col=thiscol[grp],bg=thiscol[grp],cex=0.75))
 ```
 
-![Alt text](./vignettes/images/figure-06.png?raw=true "plot of chunk unnamed-chunk-38")
+
