@@ -10,7 +10,7 @@ sites_by_species(taxon, wkt, gridsize = 0.1, SPdata.frame = FALSE,
 \arguments{
 \item{taxon}{string: the identifier to get the species data from the nbn biocache. E.g. "genus:Macropus". See \code{nbn_fields("occurrence_stored")} for valid field names}
 
-\item{wkt}{string: Bounding area in Well Known Text (WKT) format. E.g. "POLYGON((118 -30,146 -30,146 -11,118 -11,118 -30))".}
+\item{wkt}{string: Bounding area in Well Known Text (WKT) format. E.g. "POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))".}
 
 \item{gridsize}{numeric: size of output grid cells in decimal degrees. E.g. 0.1 (=~10km)}
 
@@ -26,9 +26,9 @@ A data.frame is returned as grid cells by species with values in each cell being
 }
 \examples{
 \dontrun{
-# Eucalyptus in Tasmania based on a 0.1 degree grid
-ss <- sites_by_species(taxon="genus:Eucalyptus",wkt="POLYGON((144 -43,148 -43,148 -40,
-144 -40,144 -43))",gridsize=0.1,verbose=TRUE)
+# Otters in Scotland based on a 0.1 degree grid
+ss <- sites_by_species(taxon="genus:Leutra",wkt="POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))
+",gridsize=0.1,verbose=TRUE)
 head(ss[,1:6])
 # equivalent direct POST webservice call:
 # https://layers.nbnatlas.org/ws/sitesbyspecies?speciesq=genus:Viola&qname=data&
@@ -39,7 +39,7 @@ head(ss[,1:6])
 ##  first two columns are longitude and latitude)
 attr(ss,"guid")[1]
 }
-# @export
+#@export
 }
 \references{
 Associated web services: \url{https://layers.nbnatlas.org/ws}

@@ -13,7 +13,7 @@ for valid fields). It is also good practice to quote the taxon name if it contai
 \code{taxon="taxon_name:\"Vulpes vulpes\""} (noting, however, that multi-word names are unlikely in the context of a specieslist
 search, where one would typically be searching for all species within, say, a genus or family)}
 
-\item{wkt}{string: WKT (well-known text) defining a polygon within which to limit taxon search, e.g. "POLYGON((140 -37,151 -37,151 -26,140 -26,140 -37))"}
+\item{wkt}{string: WKT (well-known text) defining a polygon within which to limit taxon search, e.g. "POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))"}
 
 \item{fq}{string: character string or vector of strings, specifying filters to be applied to the original query. These are of the form "INDEXEDFIELD:VALUE" e.g. "kingdom:Fungi". See \code{nbn_fields("occurrence_indexed",as_is=TRUE)} for all the fields that are queryable. NOTE that fq matches are case-sensitive, but sometimes the entries in the fields are not consistent in terms of case (e.g. kingdom names "Fungi" and "Plantae" but "ANIMALIA"). fq matches are ANDed by default (e.g. c("field1:abc","field2:def") will match records that have field1 value "abc" and field2 value "def"). To obtain OR behaviour, use the form c("field1:abc OR field2:def")}
 }
@@ -23,18 +23,15 @@ data frame of results, where each row is a taxon, its classification information
 \description{
 Retrieve a list of taxa matching a search query, within a spatial search area, or both.
 }
-\details{
-NOTE March 2017: the response object might include records with missing taxonomic information. This is an issue with the NBN server-side systems; see https://github.com/AtlasOfLivingAustralia/bie-index/issues/134
-}
 \examples{
 \dontrun{
-x <- specieslist(taxon="genus:Leuctra",wkt="POLYGON((-3 56,-4 56,-4 -57,-3 57,-3 56))")
+x <- specieslist(taxon="genus:Leuctra",wkt="POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))")
 
-x <- specieslist(wkt="POLYGON((-3 56,-4 56,-4 -57,-3 57,-3 56))",fq="rank:species")
+x <- specieslist(wkt="POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))",fq="rank:species")
 
-x <- specieslist(wkt="POLYGON((-3 56,-4 56,-4 -57,-3 57,-3 56))",fq="genus:Macropus")
+x <- specieslist(wkt="POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))",fq="genus:Macropus")
 
-x <- specieslist(wkt="POLYGONPOLYGON((-3 56,-4 56,-4 -57,-3 57,-3 56))",
+x <- specieslist(wkt="POLYGONPOLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))",
 fq="kingdom:Plantae")
 ## NOTE that this response might include records with empty or NA kingdom, phylum, or
 ##  class values, as per the note above.

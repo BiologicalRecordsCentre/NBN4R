@@ -3,7 +3,7 @@
 \name{nbn_config}
 \alias{nbn_config}
 \alias{nbn_reasons}
-\title{Get or set configuration options that control ALA4R behaviour}
+\title{Get or set configuration options that control NBN4R behaviour}
 \usage{
 nbn_config(...)
 
@@ -36,7 +36,7 @@ For nbn_config(), a list of all options. When nbn_config(...) is
 called with arguments, nothing is returned but the configuration is set.
 }
 \description{
-Get or set configuration options that control ALA4R behaviour
+Get or set configuration options that control NBN4R behaviour
 }
 \examples{
 \dontrun{

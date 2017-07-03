@@ -21,9 +21,9 @@ Fetch a taxon profile given a scientific name or LSID (GUID)
 }
 \examples{
 \dontrun{
- species_info("Grevillea humilis subsp. maritima")
- species_info(guid="http://id.biodiversity.org.au/node/apni/2890970")
- species_info("Alaba",verbose=TRUE)
+ species_info("Diatoma tenuis")
+ species_info(guid="NHMSYS0000080188")
+ species_info("Diatoma",verbose=TRUE)
 }
 }
 \references{

@@ -62,6 +62,8 @@ thischeck=function() {
         skip("not applicable on NBN")
         tmp <- search_layers(type="shapes",query="coral sea conservation")
         expect_lt(nchar(tmp$shortName),nchar(tmp$name))
+        skip("NBN only has one type of layer 'Contextual' - but currently no warning if 'grids' type used")
+        expect_warning(search_layers(type="grids"))
     })
 }
 check_caching(thischeck)

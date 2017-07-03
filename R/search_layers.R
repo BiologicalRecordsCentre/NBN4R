@@ -11,8 +11,8 @@
 #' @examples
 #' \dontrun{
 #' search_layers(type="all")
-#' search_layers(type="grids",query="income")
-#' search_layers(type="shapes",query="coral",output_format="simple")
+#' search_layers(type="grids",query="park")
+#' search_layers(type="shapes",query="park",output_format="simple")
 #' }
 #' @export
 search_layers <- function(query, type = "all", output_format = "simple") {

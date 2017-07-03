@@ -3,20 +3,17 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/AtlasOfLivingAustralia/ALA4R/master.svg)](https://codecov.io/github/AtlasOfLivingAustralia/ALA4R?branch=master)
 [![CRAN Status](http://www.r-pkg.org/badges/version/ALA4R)](http://www.r-pkg.org/pkg/ALA4R)
 
-
 # NBN4R
 
 *NOTE, May 2017* --- some field (column) names in returned data objects may have changed with recent changes to the NBN infrastructure. These are liable to remain in flux but are being investigated.
 
 ----
 
-
 The National Biodiversity Network (NBN) Atlas provides tools to enable users of biodiversity information to find, access, combine and visualise data on UK and Ireland plants and animals; these have been made available from https://nbnatlas.org/. Here we provide a subset of the tools to be directly used within R.
 
-NBN4R enables the R community to directly access data and resources hosted by the ALA. Our goal is to enable outputs (e.g. observations of species) to be queried and output in a range of standard formats. This tool is built on the Atlas of Living Australia (ALA4R) package which provides similar services for the Australian Atlas. Both NBN and ALA share similar Application Protocol Interface (AP)I web services. NBN4R wraps ALA4R functions but redirects requests to NBN web servers.
+NBN4R enables the R community to directly access data and resources hosted by the ALA. Our goal is to enable outputs (e.g. observations of species) to be queried and output in a range of standard formats. This tool is built on the Atlas of Living Australia (ALA4R) package which provides similar services for the Australian Atlas. Both NBN and ALA share similar Application Protocol Interface (API) web services. NBN4R wraps ALA4R functions but redirects requests to NBN web servers.
 
-The use-examples based on ALA4R are presented at the [2014 ALA Science Symposium](http://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/) are available in the package vignette, via (in R): `vignette("NBN4R")`, and a modifed version below.
-
+The use-examples based on ALA4R are presented at the [2014 ALA Science Symposium](http://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/) are available in the package vignette, via (in R): `vignette("NBN4R")`, and a draft modifed version using NBN data is below.
 
 ## Installing ALA4R
 
@@ -45,7 +42,6 @@ If you wish to use the `data.table` package for potentially faster loading of da
 ```R
 install.packages("data.table")
 ```
-
 
 ### Linux
 
@@ -78,7 +74,6 @@ If you wish to use the `data.table` package for potentially faster loading of da
 ```R
 install.packages("data.table")
 ```
-
 
 ## Using ALA4R
 The ALA4R package must be loaded for each new R session:
@@ -271,17 +266,17 @@ m <- addCircleMarkers(m,x$data$longitude,x$data$latitude,col=marker_colour,popup
 print(m)
 ```
 
-###Example 4: Community composition and turnover
+###Example 3: Community composition and turnover
 Some extra packages needed here:
 ```R
 library(vegan)
 library(mgcv)
 library(geosphere)
 ```
-Define our area of interest as a transect running westwards from the Sydney region, and download the occurrences of legumes (Fabaceae; a large family of flowering plants) in this area:
+Define our area of interest as a transect running westwards, and download the occurrences of bats:
 ```R
-wkt <- "POLYGON((-3 56,-4 56,-4 -57,-3 57,-3 56))"
-x <- occurrences(taxon="genus:macropus",wkt=wkt,qa="none",download_reason_id=10)
+wkt <- "POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))"
+x <- occurrences(taxon="Vespertilionidae",wkt=wkt,qa="none",download_reason_id=10)
 x <- x$data ## just take the data component
 ```
 Bin the locations into 0.5-degree grid cells:
@@ -312,7 +307,7 @@ plot(xgridded$longitude,apply(xgridded[,-c(1:2)],1,sum),ylab="Richness",
 
 ![Alt text](./vignettes/images/figure-02.png?raw=true "plot of chunk unnamed-chunk-36")
 
-The number of species is highest at the eastern end of the transect (the Sydney/Blue Mountains area). This probably reflects both higher species richness as well as greater sampling effort in this area compared to the western end of the transect.
+The number of species is highest at the eastern end of the transect. This probably reflects both higher species richness as well as greater sampling effort in this area compared to the western end of the transect.
 
 How does the community composition change along the transect? Calculate the dissimilarity between nearby grid cells as a function of along-transect position:
 ```R
@@ -344,7 +339,7 @@ plot(cl) ## plot dendrogram
 ![Alt text](./vignettes/images/figure-04.png?raw=true "plot of chunk unnamed-chunk-38")
 
 ```R
-grp <- cutree(cl,20) ## extract group labels at the 20-group level
+grp <- cutree(cl,9) ## extract group labels at the 20-group level
 ## coalesce small (outlier) groups into a single catch-all group
 sing <- which(table(grp)<5)
 grp[grp %in% sing] <- 21 ## put these in a new combined group
@@ -359,7 +354,7 @@ with(xgridded,plot(longitude,latitude,pch=21,col=grp,bg=grp))
 ## or slightly nicer map plot
 library(maps)
 library(mapdata)
-map("worldHires","Australia", xlim=c(105,155), ylim=c(-45,-10), col="gray90", fill=TRUE)
+map("worldHires","UK", xlim=c(-11,3), ylim=c(49,60.9), col="gray90", fill=F)
 thiscol <- c("#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b",
   "#e377c2","#7f7f7f","#bcbd22","#17becf") ## colours for clusters
 with(xgridded,points(longitude,latitude,pch=21,col=thiscol[grp],bg=thiscol[grp],cex=0.75))

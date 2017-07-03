@@ -50,3 +50,15 @@ nbn_config <- function(...) {
 nbn_reasons <- function() {
   ALA4R::ala_reasons()
 }
+
+
+## internal function, used to define the ALA4R sourceTypeId parameter value, passed by occurrences download and possibly other functions
+nbn_sourcetypeid <- function() {
+  ALA4R:::ala_sourcetyeid()
+}
+
+
+convert_reason <- function(reason) {
+  ## unexported function to convert string reason to numeric id
+ ALA4R:::convert_reason(reason)
+}

@@ -9,8 +9,8 @@ thischeck <- function() {
         expect_equal(sort(nbn_reasons()$id),c(0:8,10:12))
         expect_error(nbn_reasons(TRUE)) ## this should throw and error because there is an unused argument
         tmp <- nbn_reasons()
-        expect_equal(ALA4R:::convert_reason("testing"),tmp$id[tmp$name=="testing"])
-        expect_error(ALA4R:::convert_reason("bilbobaggins"))
+        expect_equal(NBN4R:::convert_reason("testing"),tmp$id[tmp$name=="testing"])
+        expect_error(NBN4R:::convert_reason("bilbobaggins"))
     })
 }
 check_caching(thischeck)

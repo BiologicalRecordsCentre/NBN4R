@@ -68,21 +68,20 @@ x <- occurrences(taxon="data_resource_uid:dr356",download_reason_id=10,
   fields=nbn_fields("occurrence_stored",as_is=TRUE)$name) 
 ## download records, with specified fields
 x <- occurrences(taxon="genus:macropus",fields=c("longitude","latitude",
-  "common_name","taxon_name","el807"),download_reason_id=10)
+  "common_name","taxon_name","Rights"),download_reason_id=10)
  ## download records in polygon, with no quality assertion information
-x <- occurrences(taxon="genus:macropus",
-  wkt="POLYGON((145 -37,150 -37,150 -30,145 -30,145 -37))",
-  download_reason_id=10,qa="none")
+x <- occurrences(taxon="genus:Sialis",wkt="POLYGON((-3 56,-4 56,-4 57,-3 57,-3 56))", 
+download_reason_id=10,qa="none",verbose = T)
 
-y <- occurrences(taxon="taxon_name:\\"Otis tarda\\"",fields=c("latitude","longitude","el874"),
-  download_reason_id=10)
+y <- occurrences(taxon="taxon_name:\\"Sialis lutaria\\"",fields=c("latitude","longitude","collector"),
+download_reason_id=10)
 str(y)
 # equivalent direct webservice call [see this by setting nbn_config(verbose=TRUE)]:
-# https://records-ws.nbnatlas.org/occurrences/index/download?q=taxon_name\%3A\%22Otis\%20tarda\%22&
-# fields=latitude,longitude,el874&reasonTypeId=10&sourceTypeId=2001&esc=\%5C&sep=\%09&file=data
+# https://records-ws.nbnatlas.org/occurrences/index/download?q=taxon_name\%3A\%22Sialis\%20lutaria\%22&fields=latitude
+# \%2Clongitude\%2Cbasis_of_record&reasonTypeId=10&sourceTypeId=2001&esc=\%5C&sep=\%09&file=data
 
-occurrences(taxon="genus:\\"Vulpes\\"",fields=c("latitude","longitude"),
-  qa="none",fq="basis_of_record:LivingSpecimen",download_reason_id=10)
+occurrences(taxon="genus:\\"Sialis\\"",fields=c("latitude","longitude","collector"),
+  qa="none",fq="collector:Unknown",download_reason_id=10)
 # equivalent direct webservice call [see this by setting nbn_config(verbose=TRUE)]:
 # https://records-ws.nbnatlas.org/occurrences/index/download?reasonTypeId=10&q=*:*&
 # fq=genus:Vulpes&lat=51.5074&lon=0.1278&radius=10.0&qa=none&fields=latitude,longitude&

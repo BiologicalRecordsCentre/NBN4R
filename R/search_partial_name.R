@@ -13,10 +13,10 @@
 #' @examples
 #' \dontrun{
 #' # find any names containing "allaba"
-#' search_partial_name("allaba",output_format="simple")
+#' search_partial_name("aba",output_format="simple")
 #' 
 #' # retrieve only species that have geolocated occurrence records
-#' search_partial_name("Gallaba",geo_only=TRUE)
+#' search_partial_name("Abac",geo_only=TRUE)
 #' }
 #' @export
 search_partial_name <- function(taxon, geo_only = FALSE, output_format = "simple",
