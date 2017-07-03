@@ -1,8 +1,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/fozy81/NBN4R.svg?branch=master)](https://travis-ci.org/fozy81/NBN4R)
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/branch/master?svg=true)](https://ci.appveyor.com/project/fozy81/nbn4r/branch/master)
 [![Build status](https://ci.appveyor.com/api/projects/status/pg20bu242m6x5ymt/branch/master?svg=true)](https://ci.appveyor.com/project/fozy81/nbn4r/branch/master)
-
-
+[![codecov](https://codecov.io/gh/fozy81/NBN4R/branch/master/graph/badge.svg)](https://codecov.io/gh/fozy81/NBN4R)
 
 # NBN4R
 
