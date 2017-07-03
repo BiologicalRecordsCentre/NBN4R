@@ -27,7 +27,8 @@
 #' x <- taxinfo_download("rk_family:Fabaceae",fields=c("guid","parentGuid","rk_kingdom","rk_phylum",
 #' "rk_class","rk_order","rk_family","rk_genus","scientificName"))
 #' # equivalent direct URL: https://species-ws.nbnatlas.org/download?q=rk_family%3AFabaceae&fields=
-#' guid%2CparentGuid%2Crk_kingdom%2Crk_phylum%2Crk_class%2Crk_order%2Crk_family%2Crk_genus%2CscientificName
+#' # guid%2CparentGuid%2Crk_kingdom%2Crk_phylum%2Crk_class%2Crk_order%2Crk_family%2Crk_genus%
+#' # 2CscientificName
 #' }
 #' @export taxinfo_download
 taxinfo_download <- function(query, fq, fields, verbose = nbn_config()$verbose, use_data_table = TRUE) {

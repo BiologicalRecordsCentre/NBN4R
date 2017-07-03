@@ -54,7 +54,7 @@ nbn_reasons <- function() {
 
 ## internal function, used to define the ALA4R sourceTypeId parameter value, passed by occurrences download and possibly other functions
 nbn_sourcetypeid <- function() {
-  ALA4R:::ala_sourcetyeid()
+  ALA4R:::ala_sourcetypeid()
 }
 
 

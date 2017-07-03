@@ -197,7 +197,7 @@ We can also plot the tree with images of the different finches species. We’ll 
 ```R
 s <- search_guids(tx$guid)
 ```
-And for each of those species profiles, download the thumbnail image and store it in our data cache. Unforunately, not all species have a image available. You can browse available images on the NBN Atlas [images](https://images.nbnatlas.org/). 
+And for each of those species profiles, download the thumbnail image and store it in our data cache. Unfortunately, not all species have images available. You can browse available images on the NBN Atlas [images](https://images.nbnatlas.org/). 
 
 ```R
 imfiles <- sapply(s$thumbnailUrl,function(z){ 

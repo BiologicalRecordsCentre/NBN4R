@@ -18,15 +18,15 @@
 #' search_names(c("Diatoma tenuis","Diatoma hyemale var. quadratum",
 #' "Macropus"))
 #' 
-#' search_names(c("Diatoma tenuis","Diatoma hyemale var. quadratum",
-#' "Macropus"),guids_only=TRUE)
+#' search_names(c("Diatoma tenuis","Diatoma hyemale var. quadratum","Macropus"),
+#' guids_only=TRUE)
 #' 
 #' search_names("Diatoma tenuis",vernacular=FALSE)
 #' 
 #' search_names("Diatoma tenuis",vernacular=TRUE)
 #' 
 #' ## occurrence counts for matched names
-#' search_names(c(""Diatoma tenuis","Diatoma hyemale var. quadratum",
+#' search_names(c("Diatoma tenuis","Diatoma hyemale var. quadratum",
 #' "Macropus","Thisisnot aname"),occurrence_count=TRUE)
 #'
 #' ## no occurrence counts because guids_only is TRUE

@@ -18,7 +18,7 @@ check_caching(thischeck)
 thischeck <- function() {
     test_that("occurrences summary works when no qa are present", {
         skip_on_cran()
-        expect_output(summary(occurrences(taxon="Amblyornis newtonianus",download_reason_id=10,qa="none")),"no assertion issues")
+        expect_output(summary(occurrences(taxon="Leuctra geniculata",download_reason_id=10,qa="none")),"no assertion issues")
     })
 }
 check_caching(thischeck)
@@ -26,10 +26,9 @@ check_caching(thischeck)
 thischeck <- function() {
     test_that("occurrences summary gives something sensible", {
         skip_on_cran()
-        occ <- occurrences(taxon="Amblyornis newtonianus",download_reason_id=10)
+        occ <- occurrences(taxon="Leuctra geniculata",download_reason_id=10)
         ## expect_output(summary(occ),"^number of original names")
         ## check that names required for summary.occurrences method are present
-        skip("Not working for NBN api")
         expect_true(all(c("scientificName","scientificNameOriginal") %in% names(occ$data)) || all(c("taxonName","taxonNameOriginal") %in% names(occ$data)))
         ## check that names required for unique.occurrences method are present
         expect_true(all(c("scientificName","longitude","latitude","eventDate","month","year") %in% names(occ$data)))
@@ -40,8 +39,8 @@ check_caching(thischeck)
 thischeck <- function() {
     test_that("occurrences retrieves the fields specified", {
         skip_on_cran()
-        expect_equal(sort(names(occurrences(taxon="Eucalyptus gunnii",fields=c("latitude","longitude"),qa="none",fq="basis_of_record:LivingSpecimen",download_reason_id=10)$data)),c("latitude","longitude"))
-        expect_error(occurrences(taxon="Eucalyptus gunnii",fields=c("blahblahblah"),download_reason_id=10))
+        expect_equal(sort(names(occurrences(taxon="Leuctra geniculata",fields=c("latitude","longitude"),qa="none",fq="basis_of_record:LivingSpecimen",download_reason_id=10)$data)),c("latitude","longitude"))
+        expect_error(occurrences(taxon="Leuctra geniculata",fields=c("blahblahblah"),download_reason_id=10))
     })
 }
 check_caching(thischeck)
@@ -81,7 +80,7 @@ thischeck <- function() {
         expect_error(occurrences(taxon="data_resource_uid:dr356",method="offline",download_reason_id="testing",email=""))
         expect_error(occurrences(taxon="data_resource_uid:dr356",method="offline",download_reason_id="testing"))
         expect_error(occurrences(taxon="data_resource_uid:dr356",method="offline",download_reason_id="testing",email=NULL))
-        expect_error(occurrences(taxon="Amblyornis newtonianus")) ## missing download_reason_id
+        expect_error(occurrences(taxon="Leuctra geniculata")) ## missing download_reason_id
     })
 }
 check_caching(thischeck)

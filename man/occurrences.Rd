@@ -77,8 +77,9 @@ y <- occurrences(taxon="taxon_name:\\"Sialis lutaria\\"",fields=c("latitude","lo
 download_reason_id=10)
 str(y)
 # equivalent direct webservice call [see this by setting nbn_config(verbose=TRUE)]:
-# https://records-ws.nbnatlas.org/occurrences/index/download?q=taxon_name\%3A\%22Sialis\%20lutaria\%22&fields=latitude
-# \%2Clongitude\%2Cbasis_of_record&reasonTypeId=10&sourceTypeId=2001&esc=\%5C&sep=\%09&file=data
+# https://records-ws.nbnatlas.org/occurrences/index/download?q=taxon_name\%
+# 3A\%22Sialis\%20lutaria\%22&fields=latitude\%2Clongitude\%2Cbasis_of_record&
+# reasonTypeId=10&sourceTypeId=2001&esc=\%5C&sep=\%09&file=data
 
 occurrences(taxon="genus:\\"Sialis\\"",fields=c("latitude","longitude","collector"),
   qa="none",fq="collector:Unknown",download_reason_id=10)
