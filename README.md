@@ -74,7 +74,7 @@ If you wish to use the `data.table` package for potentially faster loading of da
 install.packages("data.table")
 ```
 
-## Using NBNR
+## Using NBN4R
 The NBN4R package must be loaded for each new R session:
 ```R
 library(NBN4R)
