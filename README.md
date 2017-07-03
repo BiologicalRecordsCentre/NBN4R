@@ -10,7 +10,7 @@
 
 The National Biodiversity Network (NBN) Atlas provides tools to enable users of biodiversity information to find, access, combine and visualise data on UK and Ireland plants and animals; these have been made available from https://nbnatlas.org/. Here we provide a subset of the tools to be directly used within R.
 
-NBN4R enables the R community to directly access data and resources hosted by the ALA. Our goal is to enable outputs (e.g. observations of species) to be queried and output in a range of standard formats. This tool is built on the Atlas of Living Australia (ALA4R) package which provides similar services for the Australian Atlas. Both NBN and ALA share similar Application Protocol Interface (API) web services. NBN4R wraps ALA4R functions but redirects requests to NBN web servers.
+NBN4R enables the R community to directly access data and resources hosted by the NBN Atlas. Our goal is to enable outputs (e.g. observations of species) to be queried and output in a range of standard formats. This tool is built on the Atlas of Living Australia (ALA4R) package which provides similar services for the Australian Atlas. Both NBN and ALA share similar Application Protocol Interface (API) web services. NBN4R wraps ALA4R functions but redirects requests to NBN web servers.
 
 The use-examples based on ALA4R are presented at the [2014 ALA Science Symposium](http://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/) are available in the package vignette, via (in R): `vignette("NBN4R")`, and a draft modifed version using NBN data is below.
 
@@ -280,8 +280,8 @@ x <- x$data ## just take the data component
 ```
 Bin the locations into 0.5-degree grid cells:
 ```R
-x$longitude <- round(x$longitude*2)/2
-x$latitude <- round(x$latitude*2)/2
+x$longitude <- round(x$longitude*100)/100
+x$latitude <- round(x$latitude*100)/100
 ```
 Create a sites-by-species data frame. This could also be done with e.g. the reshape library or the table() function, or indeed directly from ALA4R’s `species_by_site` function. Note: this process inherently makes some strong assumptions about absences in the data.
 ```R
