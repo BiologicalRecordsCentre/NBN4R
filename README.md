@@ -333,7 +333,7 @@ plot(cl) ## plot dendrogram
 ```
 
 ```R
-grp <- cutree(cl,9) ## extract group labels at the 20-group level
+grp <- cutree(cl,20) ## extract group labels at the 20-group level
 ## coalesce small (outlier) groups into a single catch-all group
 sing <- which(table(grp)<5)
 grp[grp %in% sing] <- 21 ## put these in a new combined group
